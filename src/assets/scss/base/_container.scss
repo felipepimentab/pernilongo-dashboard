@@ -1,0 +1,41 @@
+@import './variables';
+
+.container {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.5rem max(4%, calc(50% - $max-width-mobile/2));
+
+  @include screen (tablet-up) {
+    padding: 1.5rem max(8%, calc(50% - $max-width-desktop/2));
+  }
+
+  /**
+   * Remove the attribute to center content
+   */
+  &--no-centered {
+    padding-right: initial;
+    padding-left: initial;
+  }
+
+  &--only {
+    &-desktop {
+      @include screen (desktop-up) {
+        padding-right: 0;
+        padding-left: 0;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.container-fluid {
+  height: 100%;
+  padding: 1.5rem 0;
+}
+
+.footer {
+  @include screen (phone-only) {
+    padding-bottom: 2.5rem;
+  }
+}
