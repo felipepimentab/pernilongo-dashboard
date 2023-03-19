@@ -16,9 +16,20 @@ import PageHeader from './components/common/PageHeader.vue';
 @import './assets/scss/global';
 
 .wrapper {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  height: fit-content;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100vw;
+  font-family: $font-sans;
+  color: $secondary-dark;
+  background-color: $main-dark;
+  position: relative;
+}
+
+html,
+body {
+  background-color: $main-dark;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 </style>

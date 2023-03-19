@@ -3,21 +3,33 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <header class="header container">
+  <header class="header">
     <h1 class="title">IoT Dashboard</h1>
-    <nav class="nav">
-      <RouterLink class="link" to="/">Home</RouterLink>
-      <RouterLink class="link" to="/about">About</RouterLink>
+    <nav>
+      <ul class="nav">
+        <li class="link">
+          <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+        </li>
+        <li class="link">
+          <RouterLink :to="{ name: 'about' }">About</RouterLink>
+        </li>
+      </ul>
     </nav>
   </header>
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/global';
+
 .header {
+  position: sticky;
+  top: 0;
   width: 100%;
-  background-color: lightgray;
+  background-color: $secondary-dark;
+  color: $main-dark;
   display: flex;
   justify-content: space-between;
+  padding: 1rem $side-spacing;
 }
 
 .title {
@@ -31,6 +43,8 @@ import { RouterLink } from 'vue-router'
 }
 
 .link {
+  list-style: none;
+
   &:hover {
     cursor: pointer;
     text-decoration: underline;

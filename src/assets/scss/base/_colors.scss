@@ -7,102 +7,12 @@ $white: #fff;
 $black: #000;
 $transparent: transparent;
 
-// Background
-$main-bg: #f8f8f8;
-$component-bg: $white;
-$modal-bg: rgba($black, 0.5);
+// Theme Dark
+$main-dark: #0c131b;
+$secondary-dark: #F4F5F5;
+$accent-dark: #48A0DC;
 
-// Texts
-$text-dark: #3a3a3a;
-$text-placeholder: #858585;
-$text-btn-disabled: #a7a7a7;
-$btn-disabled-border: #dcdcdc;
-$text-btn-negative: #e9574f;
-
-// --- Modelo para nomear as cores ---
-// $NAME-WEIGHT: HEX;
-// - NAME: Nome da cor (ex.: red, blue, green e etc.)
-// - WEIGHT: Um peso para a escala da cor,
-// começando de 100 e subindo de 100 em 100 conforme a cor vai ficando mais escura.
-// dessa maneira é simples saber que, por exemplo, $blue-500 é mais claro que $primary e assim por diante.
-// - HEX: hexadecimal da cor.
-// Exemplo:
-
-// Gray
-$gray-50: #a0a0a0;
-$gray-100: #e9e9e9;
-$gray-200: #d3d3d3;
-$gray-300: #f3f3f3;
-$gray-400: #7f7f7f;
-$gray-500: #3a3a3a;
-$gray-600: #2f2f2f;
-$gray-700: #333;
-$gray-800: #8a8a8a;
-
-// Green
-$green-100: #e5f4ed;
-$green-200: #ecfafa;
-$green-300: #e1f9f5;
-$green-500: #47bcbc;
-$green-600: #019249;
-$green-700: #006f37;
-$green-status-font: #11c1a1;
-$green-status-bg: #ddf4f0;
-
-// Red
-$red-100: #fdf4f4;
-$red-200: #ffefeb;
-$red-500: #e9574f;
-$red-600: #c70000;
-$red-status-font: $red-500;
-$red-status-bg: #fde9e4;
-$red-error-msg: #f21212;
-$red-input-invalid: #ec1a00;
-
-// Blue
-$blue-300: #e9eff7;
-$blue-400: #52a1ef;
-$blue-700: #0b85a4;
-$blue-800: #164db9;
-$blue-900: #105ba6;
-$blue-theme: $blue-900;
-$blue-status-font: #4b9ae8;
-$blue-status-bg: $blue-300;
-$blue-category-icon: #ccdbef;
-$blue-link: #0074ff;
-$blue-link-alt: #037aff;
-
-// Yellow
-$yellow-300: #ffefc8;
-$yellow-600: #edc20e;
-$yellow-status-font: #e18206;
-$yellow-status-bg: #fff0ce;
-
-// Orange
-$orange-500: #ffa94e;
-$orange-600: #ffa94e;
-
-$stepper: #e8e8e8;
-$gray-theme: #616162;
-$gray-search: #b6b6b6;
-$gray-clear-search: #ccc;
-$gray-modal: #f8f8f8;
-$gray-breadcrumb: #707070;
-$gray-tickets: #f0f0f0;
-$gray-lock: #838383;
-$black-theme: #464648;
-$gray-disabled-theme: #c9c9c9;
-$gray-disabled-button: #ededed;
-$gray-tag: #ececec;
-$gray-share-button: #a3a3a3;
-$gray-bg: #f5f5f5;
-$green-bg: #e9fbf8;
-$green-text: #06d0ab;
-$orange-theme: #fef4e5;
-$orange-text: #fa9500;
-
-// Select Colors
-$select-default-color: #979797;
-$select-border: none;
-$select-search-border: #dfdfdf;
-$select-option-color: #727272;
+// Theme Light
+$main-light: #F4F5F5;
+$secondary-light: #0c131b;
+$accent-light: #3d537c;

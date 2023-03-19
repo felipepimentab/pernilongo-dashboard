@@ -1,11 +1,13 @@
 <template>
-  <footer class="footer container">
+  <footer class="footer">
     Footer
   </footer>
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/global';
+
 .footer {
-  background-color: lightgray;
+  padding: 1rem $side-spacing;
 }
 </style>
