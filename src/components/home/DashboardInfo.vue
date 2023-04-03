@@ -1,0 +1,123 @@
+<script lang="ts" setup>
+import { useAedesStore } from '@/stores/aedes';
+import DashboardCard from './DashboardCard.vue';
+
+// Aedes store
+const aedes = useAedesStore();
+
+const mockSubs = [
+  {
+    topic: 'motor/estado',
+    qos: 0,
+    msgs: [
+      'desligado',
+      'desligado',
+      'ligado',
+      'ligado',
+    ]
+  },
+  {
+    topic: 'motor/velocidade',
+    qos: 0,
+    msgs: [
+      '100 rpm',
+      '120 rpm',
+      '130 rpm',
+      '140 rpm',
+    ]
+  },
+  {
+    topic: 'motor/tensao',
+    qos: 0,
+    msgs: [
+      '100 V',
+      '110 V',
+      '115 V',
+      '113 V',
+    ]
+  },
+  {
+    topic: 'motor/corrente',
+    qos: 0,
+    msgs: [
+      '20 A',
+      '30 A',
+      '15 A',
+      '10 A',
+    ]
+  },
+  {
+    topic: 'motor/temperatura',
+    qos: 0,
+    msgs: [
+      '45°C',
+      '50°C',
+      '60°C',
+      '62°C',
+    ]
+  },
+  {
+    topic: 'motor/avisos',
+    qos: 0,
+    msgs: [
+      'temperatura ok',
+      'temperatura ok',
+      'temperatura ok',
+      'alerta de temperatura',
+    ]
+  },
+]
+</script>
+
+<template>
+  <section class="subs">
+    <div class="subs__head">
+      <h2 class="subs__head__title">Motor</h2>
+      <SvgComponent
+        icon="Arrow"
+        class="subs__head__icon"
+      />
+    </div>
+    <DashboardCard
+      v-for="subscription in mockSubs"
+      :key="(subscription.topic as string)"
+      :topic="subscription.topic"
+      :qos="subscription.qos"
+      :msgs="subscription.msgs"
+    />
+  </section>
+</template>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/global';
+
+.subs {
+  display: grid;
+  width: 100%;
+  max-width: calc(100vw - 2rem);
+  grid-template-columns: 1fr 1fr;
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+  
+  &__head {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    align-items: center;
+    color: $text-dark;
+    column-gap: 0.5rem;
+
+    &__title {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    &__icon {
+      transform: rotate(90deg);
+      fill: rgba($text-dark, 0.75);
+      height: 0.75rem;
+      width: 0.75rem;
+    }
+  }
+}
+</style>

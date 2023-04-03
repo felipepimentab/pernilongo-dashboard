@@ -21,14 +21,15 @@ import PageHeader from './components/common/PageHeader.vue';
   height: 100%;
   width: 100vw;
   font-family: $font-sans;
-  color: $secondary-dark;
-  background-color: $main-dark;
-  position: relative;
+  color: $text-dark;
+  position: relative;  
+  // background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+  // background-image: linear-gradient(180deg, #4e1736 0%, #22162c 50%, #0d2230 100%);
 }
 
 html,
 body {
-  background-color: $main-dark;
+  background-color: $bg-fallback-dark;
   overflow-x: hidden;
   max-width: 100vw;
 }

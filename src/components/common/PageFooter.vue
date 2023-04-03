@@ -1,6 +1,50 @@
+<script lang="ts" setup>
+import { RouterLink } from 'vue-router'
+
+</script>
+
 <template>
   <footer class="footer">
-    Footer
+    <nav>
+      <ul class="nav">
+        <li class="link">
+          <RouterLink :to="{ name: 'home' }">
+            <SvgComponent
+              icon="HomeOutline"
+              class="link__icon link__icon--outline"
+              />
+            <SvgComponent
+              icon="HomeFilled"
+              class="link__icon link__icon--filled"
+            />
+          </RouterLink>
+        </li>
+        <li class="link">
+          <RouterLink :to="{ name: 'config' }">
+            <SvgComponent
+              icon="SettingsOutline"
+              class="link__icon link__icon--outline"
+              />
+            <SvgComponent
+              icon="SettingsFilled"
+              class="link__icon link__icon--filled"
+            />
+          </RouterLink>
+        </li>
+        <li class="link">
+          <RouterLink :to="{ name: 'about' }">
+            <SvgComponent
+              icon="HelpOutline"
+              class="link__icon link__icon--outline"
+              />
+            <SvgComponent
+              icon="HelpFilled"
+              class="link__icon link__icon--filled"
+            />
+          </RouterLink>
+        </li>
+      </ul>
+    </nav>
   </footer>
 </template>
 
@@ -8,6 +52,59 @@
 @import '@/assets/scss/global';
 
 .footer {
-  padding: 1rem $side-spacing;
+  padding: 1rem $side-spacing 1.5rem;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  background-color: rgba($card-dark, $alpha: 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.link {
+  list-style: none;
+  height: 1.5rem;
+  width: 1.5rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  button:focus {
+    outline: none;
+  }
+
+  &__icon {
+    fill: $text-dark;
+    height: 1.5rem;
+
+    &--outline {
+      display: block;
+    }
+
+    &--filled {
+      display: none;
+    }
+  }
+}
+
+.router-link-active {
+  .link__icon {
+    &--outline {
+      display: none;
+    }
+
+    &--filled {
+      display: block;
+    }
+  }
 }
 </style>

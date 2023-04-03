@@ -19,12 +19,12 @@ $border-2: 0.12rem;
 $border-button: 0.09375rem;
 
 // -- Content width
-$max-width-mobile: 400px;
+$max-width-mobile: 600px;
 $max-width-desktop: 1200px;
 
 // -- Padding Size
 // Ex: padding: 0 $side-spacing;
-$side-spacing: max(1.5rem, calc(50vw - $max-width-mobile/2));
+$side-spacing: max(1rem, calc(50vw - $max-width-mobile/2));
 
 /*
  * --- Fonts
@@ -32,8 +32,7 @@ $side-spacing: max(1.5rem, calc(50vw - $max-width-mobile/2));
 
 // -- Family
 // Ex.: font-family: $font-sans;
-$font-sans: 'Poppins', arial, sans-serif; // Change to font-face for sans-serif
-$card-font: 'Libre Baskerville', serif;
+$font-sans: 'Roboto', arial, sans-serif; // Change to font-face for sans-serif
 
 // -- Weight
 // Ex.: font-weight: $font-thin;

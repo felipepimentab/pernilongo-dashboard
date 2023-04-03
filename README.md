@@ -1,68 +1,49 @@
-# iot-dashboard
+# IoT Dashboard
+## Sobre o projeto
+Este projeto se trata de um dashboard interativo para aplicações IoT utilizado no trabalho de conclusão de curso (TCC) do aluno Felipe Pimenta Bernardo, em conjunto com o aluno Flávio Alegretti Ramos, orientados pelo professor Dr. José Roberto Boffino de Almeida Monteiro.
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+## Rodando o projeto
+Instalando dependências
+```
 npm install
 ```
-
-### Compile and Hot-Reload for Development
-
-```sh
+Rodando localmente em modo de desenvolvimento
+```
 npm run dev
 ```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
+Rodando localmente expondo para a rede local
+```
+npm run serve
+```
+Fazendo a build para produção
+```
 npm run build
 ```
+## Tecnologias
+Este projeto foi criado utilizando o framework **Vue 3**, com **TypeScript** para tipagem. Para testes unitários foi escolhido o **Vitest**. Para testes *End-to-End* (E2E) foi escolhido o **Cypress**. O projeto conta também com **Vue Router** para roteamento de páginas e **Pinia** para gerenciamento de estados.
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Arquitetura
 
-```sh
-npm run test:unit
+### Tópicos
+Visão geral da estrutura de tópicos do broker:
+```
+/motor
+├── /estado
+|   ├── /atual
+|   └── /meta
+├── /velocidade
+├── /tensao
+├── /corrente
+|   ├── /atual
+|   ├── /max
+|   └── /meta
+├── /temperatura
+|   ├── /atual
+|   └── /max
+└── /avisos
+    ├── /luz
+    └── /som
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+#### Estado
+O tópico `/estado` se refere ao estado do motor, i.e., ligado ou desligado. Possui dois subtópicos: `/atual` e `/meta`.

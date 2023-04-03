@@ -1,20 +1,54 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import type { Ref } from 'vue';
+import { ref } from 'vue';
+
+const darkmode: Ref<boolean> = ref(false);
+
+function toggleDarkMode(): void {
+  darkmode.value = !darkmode.value;
+}
+
+function addTopic(): void {
+  console.log('Add topic');
+}
 </script>
 
 <template>
   <header class="header">
+    <ul class="options">
+      <li class="item">
+        <button
+          type="button"
+          @click.prevent="addTopic"
+        >
+          <SvgComponent
+            icon="Retry"
+            title="Recarregar"
+            class="item__icon"
+          />
+        </button>
+      </li>
+      <li class="item">
+        <button
+          type="button"
+          @click.prevent="toggleDarkMode"
+        >
+          <SvgComponent
+            v-if="darkmode"
+            icon="DarkMode"
+            title="Modo escuro"
+            class="item__icon"
+            />
+          <SvgComponent
+            v-else
+            icon="LightMode"
+            title="Modo claro"
+            class="item__icon"
+          />
+        </button>
+      </li>
+    </ul>
     <h1 class="title">IoT Dashboard</h1>
-    <nav>
-      <ul class="nav">
-        <li class="link">
-          <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-        </li>
-        <li class="link">
-          <RouterLink :to="{ name: 'about' }">About</RouterLink>
-        </li>
-      </ul>
-    </nav>
   </header>
 </template>
 
@@ -22,36 +56,43 @@ import { RouterLink } from 'vue-router'
 @import '@/assets/scss/global';
 
 .header {
-  position: sticky;
-  top: 0;
   width: 100%;
-  background-color: $secondary-dark;
-  color: $main-dark;
+  color: $text-dark;
   display: flex;
-  justify-content: space-between;
-  padding: 1rem $side-spacing;
+  flex-direction: column;
+  padding: 0.5rem $side-spacing;
+  row-gap: 0.5rem;
 }
 
 .title {
   font-weight: bold;
+  font-size: 2rem;
 }
 
-.nav {
+.options {
   display: flex;
-  align-items: baseline;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
   column-gap: 1rem;
 }
 
-.link {
+.item {
   list-style: none;
+  height: 1.5rem;
+  width: 1.5rem;
 
   &:hover {
     cursor: pointer;
-    text-decoration: underline;
   }
-}
 
-.router-link-active {
-  font-weight: bold;
+  button:focus {
+    outline: none;
+  }
+
+  &__icon {
+    fill: $text-dark;
+    height: 1.5rem;
+  }
 }
 </style>
