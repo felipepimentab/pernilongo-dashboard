@@ -10,8 +10,6 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global';
-
 .config {
   padding: 1rem $side-spacing;
 }

@@ -59,8 +59,6 @@ connectToBroker();
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global';
-
 .main {
   padding: 0.5rem $side-spacing;
   display: flex;

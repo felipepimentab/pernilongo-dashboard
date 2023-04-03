@@ -50,8 +50,6 @@ function toggleActive(): void {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global';
-
 .card {
   padding: 0.5rem 0.75rem;
   border-radius: 1rem;

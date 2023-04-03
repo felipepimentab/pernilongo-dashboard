@@ -89,8 +89,6 @@ const mockSubs = [
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global';
-
 .subs {
   display: grid;
   width: 100%;

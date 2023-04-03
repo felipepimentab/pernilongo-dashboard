@@ -49,8 +49,6 @@ import { RouterLink } from 'vue-router'
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global';
-
 .footer {
   padding: 1rem $side-spacing 1.5rem;
   position: fixed;

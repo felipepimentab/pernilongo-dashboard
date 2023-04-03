@@ -53,8 +53,6 @@ function addTopic(): void {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/global';
-
 .header {
   width: 100%;
   color: $text-dark;

@@ -1,0 +1,42 @@
+/*
+ * --- Global
+*/
+
+// -- Radius
+// Ex.: border-radius: $radius-none;
+$radius-none: 0;          // 0px
+$radius-sm: 0.125rem;     // 2px
+$radius-normal: 0.25rem;  // 4px
+$radius-md: 0.5rem;       // 8px
+$radius-lg: 1rem;         // 16px
+$radius-full: 9999px;     // rounded
+
+// -- Border Size
+// Ex.: border-width: $border-1;
+$border-none: 0;            // 0px
+$border-1: 0.06rem;         // 1px
+$border-2: 0.12rem;         // 2px
+
+// -- Content width
+$max-width-mobile: 600px;
+$max-width-desktop: 1200px;
+
+// -- Padding Size
+// Ex: padding: 0 $side-spacing;
+$side-spacing: max(1rem, calc(50vw - $max-width-mobile/2));
+$std-padding: 1rem;
+$std-vertical-pdd: 0.5rem;
+$std-horizontal-pdd: 1.5rem;
+$std-gap: 0.5rem;
+$sm-gap: 0.25rem;
+
+/*
+ * --- Fonts
+*/
+
+// -- Family
+// Ex.: font-family: $font-sans;
+$font-sans: 'Roboto', arial, sans-serif;
+
+// -- Size
+// Ex.: font-size: $text-sm;
