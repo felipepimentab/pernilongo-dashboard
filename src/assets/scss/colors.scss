@@ -15,7 +15,7 @@ $bg-pink-dark: #4e1736;
 $bg-purple-dark: #22162c;
 $bg-blue-dark: #0d2230;
 
-$bg-fallback-dark: #201f29;
+$bg-fallback-dark: $bg-blue-dark;
 
 // Theme Light
 $text-light: #0b0d10;
@@ -24,6 +24,8 @@ $card-light: #f4f5f5;
 $bg-pink-light: #ff3cac;
 $bg-purple-light: #784ba0;
 $bg-blue-light: #2b86c5;
+
+$bg-fallback-light: $bg-blue-light;
 
 // Icons
 $icon-red: #ff6f6f;

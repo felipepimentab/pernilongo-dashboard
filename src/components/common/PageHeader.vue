@@ -1,21 +1,12 @@
 <script setup lang="ts">
-import type { Ref } from 'vue';
-import { ref } from 'vue';
+import { useDark, useToggle } from '@vueuse/core';
 
-const darkmode: Ref<boolean> = ref(false);
-
-function toggleDarkMode(): void {
-  darkmode.value = !darkmode.value;
-  emit('darkmode', darkmode.value);
-}
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
 function addTopic(): void {
   console.log('Add topic');
 }
-
-const emit = defineEmits<{
-  (e: 'darkmode', value: boolean):void
-}>()
 </script>
 
 <template>
@@ -36,10 +27,10 @@ const emit = defineEmits<{
       <li class="item">
         <button
           type="button"
-          @click.prevent="toggleDarkMode"
+          @click.prevent="toggleDark()"
         >
           <SvgComponent
-            v-if="darkmode"
+            v-if="isDark"
             icon="DarkMode"
             title="Modo escuro"
             class="item__icon"
@@ -60,11 +51,11 @@ const emit = defineEmits<{
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  color: $text-dark;
   display: flex;
   flex-direction: column;
   padding: 0.5rem $side-spacing;
   row-gap: 0.5rem;
+  color: $text-light; //
 }
 
 .title {
@@ -94,8 +85,18 @@ const emit = defineEmits<{
   }
 
   &__icon {
-    fill: $text-dark;
     height: 1.5rem;
+    fill: $text-light; //
+  }
+}
+
+.dark {
+  .header {
+    color: $text-dark;
+  }
+
+  .item__icon {
+    fill: $text-dark;
   }
 }
 </style>

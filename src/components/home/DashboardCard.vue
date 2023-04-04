@@ -38,7 +38,6 @@ function toggleActive(): void {
 .card {
   padding: 0.5rem;
   border-radius: 1.5rem;
-  background-color: rgba($card-dark, $alpha: 0.5);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   transition: all 0.3s ease-in-out;
@@ -47,6 +46,7 @@ function toggleActive(): void {
   justify-content: flex-start;
   align-items: center;
   column-gap: 0.5rem;
+  background-color: rgba($card-light, $alpha: 0.5); //
     
   &__icon {
     fill: $icon-yellow;
@@ -54,9 +54,9 @@ function toggleActive(): void {
     width: 1.5rem;
     overflow: visible;
     border-radius: 100%;
-    background-color: rgba($card-dark, 0.5);
     padding: 0.5rem;
     box-sizing: content-box;
+    background-color: rgba($card-light, 0.5); //
   }
 
   &__topic {
@@ -73,12 +73,31 @@ function toggleActive(): void {
 
 
   &--active {
-    background-color: rgba($text-dark, $alpha: 0.95);
-    color: $card-dark;
+    background-color: rgba($text-light, $alpha: 0.95); //
+    color: $card-light; //
 
     .card__head__icon {
-      fill: $text-dark;
-      background-color: rgba($icon-yellow, $alpha: 0.75);
+      fill: $text-light; //
+      background-color: rgba($icon-yellow, $alpha: 0.75); //
+    }
+  }
+}
+
+.dark {
+  .card {
+    background-color: rgba($card-dark, $alpha: 0.5); //
+
+    &__icon {
+      background-color: rgba($card-dark, 0.5); //
+    }
+
+    &--active {
+      background-color: rgba($text-dark, $alpha: 0.95); //
+      color: $card-dark; //
+
+      .card__head__icon {
+        fill: $text-dark; //
+      }
     }
   }
 }

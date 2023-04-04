@@ -1,19 +1,12 @@
 <script setup lang="ts">
+import PageHeader from './components/common/PageHeader.vue';
 import { RouterView } from 'vue-router'
 import PageFooter from './components/common/PageFooter.vue';
-import PageHeader from './components/common/PageHeader.vue';
-import { ref } from 'vue';
-import type { Ref } from 'vue';
-
-const isDarkMode: Ref<boolean> = ref(false);
 </script>
 
 <template>
-  <div
-    class="wrapper"
-    :class="isDarkMode ? 'dark-mode' : 'light-mode'"
-  >
-    <PageHeader @darkmode="(darkmode) => isDarkMode = darkmode"/>
+  <div class="wrapper">
+    <PageHeader />
     <RouterView />
     <PageFooter />
   </div>
@@ -24,9 +17,13 @@ const isDarkMode: Ref<boolean> = ref(false);
 
 html,
 body {
-  background-color: $bg-fallback-dark;
   overflow-x: hidden;
   max-width: 100vw;
+}
+
+html {
+  background-color: $bg-fallback-light;
+  // background-image: linear-gradient(225deg, $bg-pink-light 0%, $bg-purple-light 50%, $bg-blue-light 100%);
 }
 
 .wrapper {
@@ -35,19 +32,18 @@ body {
   height: 100%;
   width: 100vw;
   font-family: $font-sans;
-  color: $text-dark;
+  color: $text-light;
   position: relative;
   transition: background-color 0.3s ease-in-out;
   padding-bottom: 4rem;
 }
 
-.dark-mode {
-  background-color: $bg-blue-dark;
-  background-image: linear-gradient(225deg, $bg-pink-dark 0%, $bg-purple-dark 50%, $bg-blue-dark 100%);
-}
+.dark {
+  background-color: $bg-fallback-dark;
+  // background-image: linear-gradient(225deg, $bg-pink-dark 0%, $bg-purple-dark 50%, $bg-blue-dark 100%);
 
-.light-mode {
-  background-color: $bg-blue-light;
-  background-image: linear-gradient(225deg, $bg-pink-light 0%, $bg-purple-light 50%, $bg-blue-light 100%);
+  .wrapper {
+    color: $text-dark;
+  }
 }
 </style>

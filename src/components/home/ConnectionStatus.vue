@@ -35,21 +35,24 @@ const connected: Ref<boolean> = ref(aedes.client.connected);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   column-gap: 1rem;
-  background-color: rgba($card-dark, $alpha: 0.5);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-
+  background-color: rgba($card-light, $alpha: 0.5);
+  
   &__icon {
-    fill: $text-dark;
+    fill: $text-light;
     height: 2rem;
     width: 2rem;
   }
-
+  
   &__name {
     font-weight: bold;
+    color: $text-light;
   }
-
+  
   &__status {
+    color: $text-light;
+
     .state {
       font-weight: bold;
       color: red;
@@ -57,6 +60,21 @@ const connected: Ref<boolean> = ref(aedes.client.connected);
     
     .connected {
       color: green;
+    }
+  }
+}
+
+.dark {
+  .connection {
+    background-color: rgba($card-dark, $alpha: 0.5);
+
+    &__icon {
+      fill: $text-dark;
+    }
+
+    &__name,
+    &__status {
+      color: $text-dark;
     }
   }
 }
