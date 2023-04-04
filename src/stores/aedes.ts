@@ -116,7 +116,7 @@ export const useAedesStore = defineStore('aedes', () => {
   function doSubscribe(sub: subscription): void {
     const { topic, qos } = sub;
     client.value.subscribe(
-      topic,
+      topic as string,
       { qos },
       (error: Error, granted: mqtt.ISubscriptionGrant[]) => {
         if (error) {
@@ -132,7 +132,7 @@ export const useAedesStore = defineStore('aedes', () => {
   // unsubscribe topic
   function doUnSubscribe(sub: subscription): void {
     const { topic, qos } = sub;
-    client.value.unsubscribe(topic, { qos }, (error) => {
+    client.value.unsubscribe(topic as string, { qos }, (error) => {
       subscribeSuccess.value = false;
       if (error) {
         console.log("unsubscribe error:", error);
@@ -145,7 +145,7 @@ export const useAedesStore = defineStore('aedes', () => {
   // publish message
   function doPublish(pub: publish): void {
     const { topic, qos, payload } = pub;
-    client.value.publish(topic, payload, { qos }, (error) => {
+    client.value.publish(topic as string, payload, { qos }, (error) => {
       if (error) {
         console.log("publish error:", error);
         return;

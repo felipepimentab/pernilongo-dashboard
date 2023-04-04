@@ -22,77 +22,49 @@ function toggleActive(): void {
     :class="{ 'card--active': active }"
     @click="toggleActive"
   >
-    <div class="card__head">
-      <SvgComponent
-      :icon="topicIcon(topic)"
-      class="card__head__icon"
-      :title="topic"
-      />
-      <div>
-        <h3 class="card__head__topic">{{ topicName(topic) }}</h3>
-        <p class="card__head__preview">{{ capitalize(msgs[msgs.length - 1]) }}</p>
-      </div>
-    </div>
-    <div
-      class="card__body"
-      :class="{ 'card__body--active': active }"
-    >
-      <p class="card__body__qos">QoS: {{ qos }}</p>
-      <!-- <p
-        v-for="msg in msgs"
-        :key="msg"
-        class="card__body__msg"
-        >
-        {{ msg }}
-      </p> -->
+    <SvgComponent
+    :icon="topicIcon(topic)"
+    class="card__icon"
+    :title="topic"
+    />
+    <div>
+      <h3 class="card__topic">{{ topicName(topic) }}</h3>
+      <p class="card__preview">{{ capitalize(msgs[msgs.length - 1]) }}</p>
     </div>
   </article>
 </template>
 
 <style lang="scss" scoped>
 .card {
-  padding: 0.5rem 0.75rem;
-  border-radius: 1rem;
+  padding: 0.5rem;
+  border-radius: 1.5rem;
   background-color: rgba($card-dark, $alpha: 0.5);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   transition: all 0.3s ease-in-out;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  
-  &__head {
-    display: flex;
-    align-items: center;
-    column-gap: 0.5rem;
-    overflow: visible;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 0.5rem;
     
-    &__icon {
-      fill: #0471a6;
-      height: 1.5rem;
-      width: 1.5rem;
-      overflow: visible;
-      border-radius: 100%;
-      background-color: rgba($card-dark, 0.5);
-      padding: 0.5rem;
-      box-sizing: content-box;
-    }
-
-    &__topic {
-      font-size: 1rem;
-      font-weight: bold;
-    }
+  &__icon {
+    fill: $icon-yellow;
+    height: 1.5rem;
+    width: 1.5rem;
+    overflow: visible;
+    border-radius: 100%;
+    background-color: rgba($card-dark, 0.5);
+    padding: 0.5rem;
+    box-sizing: content-box;
   }
-  
-  &__body {
-    height: 0;
-    overflow: hidden;
-    transition: height 0.3s ease-in-out;
 
-    &--active {
-      height: fit-content;
-    }
+  &__topic {
+    font-size: 1rem;
+  }
+
+  &__preview {
+    font-size: 0.875rem;
   }
 
   &:hover {
@@ -106,7 +78,7 @@ function toggleActive(): void {
 
     .card__head__icon {
       fill: $text-dark;
-      background-color: #0471a6;
+      background-color: rgba($icon-yellow, $alpha: 0.75);
     }
   }
 }

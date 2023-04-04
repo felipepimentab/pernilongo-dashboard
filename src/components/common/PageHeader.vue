@@ -6,11 +6,16 @@ const darkmode: Ref<boolean> = ref(false);
 
 function toggleDarkMode(): void {
   darkmode.value = !darkmode.value;
+  emit('darkmode', darkmode.value);
 }
 
 function addTopic(): void {
   console.log('Add topic');
 }
+
+const emit = defineEmits<{
+  (e: 'darkmode', value: boolean):void
+}>()
 </script>
 
 <template>

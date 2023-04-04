@@ -71,13 +71,6 @@ const mockSubs = [
 
 <template>
   <section class="subs">
-    <div class="subs__head">
-      <h2 class="subs__head__title">Motor</h2>
-      <SvgComponent
-        icon="Arrow"
-        class="subs__head__icon"
-      />
-    </div>
     <DashboardCard
       v-for="subscription in mockSubs"
       :key="(subscription.topic as string)"
@@ -96,26 +89,5 @@ const mockSubs = [
   grid-template-columns: 1fr 1fr;
   row-gap: 0.5rem;
   column-gap: 0.5rem;
-  
-  &__head {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    display: flex;
-    align-items: center;
-    color: $text-dark;
-    column-gap: 0.5rem;
-
-    &__title {
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
-
-    &__icon {
-      transform: rotate(90deg);
-      fill: rgba($text-dark, 0.75);
-      height: 0.75rem;
-      width: 0.75rem;
-    }
-  }
 }
 </style>
