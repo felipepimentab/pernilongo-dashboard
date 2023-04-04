@@ -18,6 +18,7 @@
   align-items: center;
   column-gap: 0.5rem;
   color: $text-light; //
+  transition: color 0.3s ease-in-out;
 
   &__text {
     font-size: 1.25rem;
@@ -29,6 +30,7 @@
     height: 0.75rem;
     width: 0.75rem;
     fill: rgba($text-light, 0.75); //
+    transition: fill 0.3s ease-in-out;
   }
 }
 

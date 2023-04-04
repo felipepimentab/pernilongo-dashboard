@@ -37,7 +37,7 @@ function toggleActive(): void {
 <style lang="scss" scoped>
 .card {
   padding: 0.5rem;
-  border-radius: 1.5rem;
+  border-radius: 100rem;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   transition: all 0.3s ease-in-out;
@@ -46,17 +46,21 @@ function toggleActive(): void {
   justify-content: flex-start;
   align-items: center;
   column-gap: 0.5rem;
-  background-color: rgba($card-light, $alpha: 0.5); //
+  font-weight: bold;
+  background-color: $card-bg-light; //
+  color: $text-light;
+  transition: background-color 0.3s ease-in-out;
     
   &__icon {
-    fill: $icon-yellow;
     height: 1.5rem;
     width: 1.5rem;
     overflow: visible;
     border-radius: 100%;
     padding: 0.5rem;
     box-sizing: content-box;
-    background-color: rgba($card-light, 0.5); //
+    fill: $icon-yellow;
+    background-color: $icon-bg-light; //
+    transition: background-color 0.3s ease-in-out;
   }
 
   &__topic {
@@ -73,30 +77,34 @@ function toggleActive(): void {
 
 
   &--active {
-    background-color: rgba($text-light, $alpha: 0.95); //
-    color: $card-light; //
+    background-color: $card-bg-active-light; //
+    color: $text-active-light;
+    -webkit-box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.15);
+    -moz-box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.15);
+    box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.15);
 
-    .card__head__icon {
+    .card__icon {
       fill: $text-light; //
-      background-color: rgba($icon-yellow, $alpha: 0.75); //
+      background-color: $icon-yellow-active; //
     }
   }
 }
 
 .dark {
   .card {
-    background-color: rgba($card-dark, $alpha: 0.5); //
+    background-color: $card-bg-dark; //
 
     &__icon {
-      background-color: rgba($card-dark, 0.5); //
+      background-color: $icon-bg-dark; //
     }
 
     &--active {
-      background-color: rgba($text-dark, $alpha: 0.95); //
-      color: $card-dark; //
+      background-color: $icon-bg-active-dark; //
+      color: $text-dark; //
 
-      .card__head__icon {
+      .card__icon {
         fill: $text-dark; //
+        background-color: $icon-yellow-active;
       }
     }
   }

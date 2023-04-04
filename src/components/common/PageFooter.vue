@@ -54,9 +54,9 @@ import { RouterLink } from 'vue-router'
   position: fixed;
   bottom: 0;
   width: 100vw;
-  background-color: rgba($card-dark, $alpha: 0.5);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background-color: $card-bg-light; //
 }
 
 .nav {
@@ -71,23 +71,23 @@ import { RouterLink } from 'vue-router'
   list-style: none;
   height: 1.5rem;
   width: 1.5rem;
-
+  
   &:hover {
     cursor: pointer;
   }
-
+  
   button:focus {
     outline: none;
   }
 
   &__icon {
-    fill: $text-dark;
+    fill: $text-light;
     height: 1.5rem;
 
     &--outline {
       display: block;
     }
-
+    
     &--filled {
       display: none;
     }
@@ -99,9 +99,19 @@ import { RouterLink } from 'vue-router'
     &--outline {
       display: none;
     }
-
+    
     &--filled {
       display: block;
+    }
+  }
+}
+
+.dark {
+  .footer {
+    background-color: $card-bg-dark;
+
+    .link__icon {
+      fill: $text-dark;
     }
   }
 }

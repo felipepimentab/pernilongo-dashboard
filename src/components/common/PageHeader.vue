@@ -56,6 +56,7 @@ function addTopic(): void {
   padding: 0.5rem $side-spacing;
   row-gap: 0.5rem;
   color: $text-light; //
+  transition: color 0.3s ease-in-out;
 }
 
 .title {

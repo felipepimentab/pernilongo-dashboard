@@ -22,6 +22,7 @@ body {
 }
 
 html {
+  transition: background-color 0.3s ease-in-out;
   background-color: $bg-fallback-light;
   // background-image: linear-gradient(225deg, $bg-pink-light 0%, $bg-purple-light 50%, $bg-blue-light 100%);
 }
@@ -34,8 +35,8 @@ html {
   font-family: $font-sans;
   color: $text-light;
   position: relative;
-  transition: background-color 0.3s ease-in-out;
   padding-bottom: 4rem;
+  transition: color 0.3s ease-in-out;
 }
 
 .dark {
