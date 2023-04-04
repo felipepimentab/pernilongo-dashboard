@@ -1,3 +1,5 @@
+import type { ListOfTopics } from "@/types/aedes";
+
 /* 
  *  Config options
  */
@@ -16,4 +18,31 @@ const config = {
   password: 'pernilongo12345' as string,
 }
 
-export default config;
+const topicsList: ListOfTopics = [
+  {
+    path: 'motor/estado',
+    qos: 0,
+  },
+  {
+    path: 'motor/velocidade',
+    qos: 0,
+  },
+  {
+    path: 'motor/tensão',
+    qos: 0,
+  },
+  {
+    path: 'motor/corrente',
+    qos: 0,
+  },
+  {
+    path: 'motor/avisos',
+    qos: 0,
+  },
+  {
+    path: 'motor/temperatura',
+    qos: 0,
+  }
+];
+
+export { config, topicsList};

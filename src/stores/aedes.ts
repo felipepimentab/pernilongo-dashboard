@@ -2,26 +2,11 @@ import { ref, reactive } from 'vue'
 import type { Ref } from 'vue'
 import { defineStore } from 'pinia'
 import * as mqtt from 'mqtt/dist/mqtt.min';
-import config from '@/helpers/config';
-
-interface subscription {
-  topic: String,
-  qos: mqtt.QoS,
-  msgs: Array<String | Object>
-}
-
-interface subInfo {
-  topic: String,
-  qos: mqtt.QoS,
-}
-
-interface publish {
-  topic: String,
-  qos: mqtt.QoS,
-  payload: String | Object,
-}
+import { config, topicsList } from '@/helpers/config';
+import type { Topic, ListOfTopics, Publish } from '@/types/aedes';
 
 export const useAedesStore = defineStore('aedes', () => {
+  /* Setup */
   const qosList = [0, 1, 2];
   
   const connection = reactive({
@@ -33,7 +18,7 @@ export const useAedesStore = defineStore('aedes', () => {
     connectTimeout: 30 * 1000, // ms
     reconnectPeriod: 4000, // ms
     clientId: config.clientId + '_' + Math.random().toString(16).substring(2, 8),
-    username: config.username,
+    userpath: config.username,
     password: config.password,
   });
 
@@ -67,18 +52,22 @@ export const useAedesStore = defineStore('aedes', () => {
     }
   };
 
-  const listOfSubscriptions: Ref<Array<subscription>> = ref([]);
-  
-  /* 
-  *  Exported functions
-  */
+  /* Topics */
 
-  function newSubscription(subInfo: subInfo): void {
-    if(!listOfSubscriptions.value.find(sub => sub.topic === subInfo.topic)) {
-      const newSub: subscription = {
-        topic: subInfo.topic,
+  const listOfTopics: ListOfTopics = topicsList;
+
+  const listOfPublishers: Ref<Array<Publish>> = ref([]);
+
+  const listOfSubscriptions: Ref<ListOfTopics> = ref([]);
+  
+  /* Exported functions */
+
+  function newSubscription(subInfo: Topic): void {
+    if(!listOfSubscriptions.value.find(sub => sub.path === subInfo.path)) {
+      const newSub: Topic = {
+        path: subInfo.path,
         qos: subInfo.qos,
-        msgs: [],
+        messages: [],
       };
       listOfSubscriptions.value.push(newSub);
       doSubscribe(newSub);
@@ -100,11 +89,15 @@ export const useAedesStore = defineStore('aedes', () => {
         client.value.on("error", (error) => {
           console.log("connection error:", error);
         });
-        client.value.on("message", (topic: string, message) => {
+        client.value.on("message", (path: string, message) => {
           receiveNews.value = receiveNews.value.concat(message.toString());
-          const index = listOfSubscriptions.value.findIndex(sub => sub.topic === topic);
-          listOfSubscriptions.value[index].msgs.push(message);
-          console.log(`received message: ${message} from topic: ${topic}`);
+          const index = listOfSubscriptions.value.findIndex(sub => sub.path === path);
+
+          if(listOfSubscriptions.value[index].messages) {
+            listOfSubscriptions.value[index].messages.push(message);
+          }
+
+          console.log(`received message: ${message} from topic: ${path}`);
         });
       }
     } catch (error) {
@@ -113,10 +106,10 @@ export const useAedesStore = defineStore('aedes', () => {
   };
   
   // subscribe topic
-  function doSubscribe(sub: subscription): void {
-    const { topic, qos } = sub;
+  function doSubscribe(sub: Topic): void {
+    const { path, qos } = sub;
     client.value.subscribe(
-      topic as string,
+      path,
       { qos },
       (error: Error, granted: mqtt.ISubscriptionGrant[]) => {
         if (error) {
@@ -130,22 +123,22 @@ export const useAedesStore = defineStore('aedes', () => {
   };
   
   // unsubscribe topic
-  function doUnSubscribe(sub: subscription): void {
-    const { topic, qos } = sub;
-    client.value.unsubscribe(topic as string, { qos }, (error) => {
+  function doUnSubscribe(sub: Topic): void {
+    const { path, qos } = sub;
+    client.value.unsubscribe(path, { qos }, (error) => {
       subscribeSuccess.value = false;
       if (error) {
         console.log("unsubscribe error:", error);
         return;
       }
-      console.log(`unsubscribed topic: ${topic}`);
+      console.log(`unsubscribed topic: ${path}`);
     });
   };
   
   // publish message
-  function doPublish(pub: publish): void {
+  function doPublish(pub: Publish): void {
     const { topic, qos, payload } = pub;
-    client.value.publish(topic as string, payload, { qos }, (error) => {
+    client.value.publish(topic, payload, { qos }, (error) => {
       if (error) {
         console.log("publish error:", error);
         return;
@@ -175,6 +168,8 @@ export const useAedesStore = defineStore('aedes', () => {
   return {
     // variables (state)
     client,
+    listOfTopics,
+    listOfPublishers,
     listOfSubscriptions,
     // variables (computed)
       //

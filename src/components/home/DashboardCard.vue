@@ -4,11 +4,11 @@ import type { Ref } from 'vue';
 import { topicName, topicIcon, capitalize } from '@/helpers/utils';
 
 const props = defineProps<{
-  topic: string,
-  qos: Number,
-  msgs: Array<string>
+  path: string,
+  qos: number,
+  messages?: Array<string>
   }>();
-const { topic, qos, msgs } = toRefs(props);
+const { path, qos, messages } = toRefs(props);
 
 const active: Ref<boolean> = ref(false);
 function toggleActive(): void {
@@ -23,13 +23,13 @@ function toggleActive(): void {
     @click="toggleActive"
   >
     <SvgComponent
-    :icon="topicIcon(topic)"
+    :icon="topicIcon(path)"
     class="card__icon"
-    :title="topic"
+    :title="path"
     />
     <div>
-      <h3 class="card__topic">{{ topicName(topic) }}</h3>
-      <p class="card__preview">{{ capitalize(msgs[msgs.length - 1]) }}</p>
+      <h3 class="card__topic">{{ topicName(path) }}</h3>
+      <p v-if="messages" class="card__preview">{{ capitalize(messages[messages.length - 1]) }}</p>
     </div>
   </article>
 </template>

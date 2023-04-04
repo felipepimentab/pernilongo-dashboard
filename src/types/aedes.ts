@@ -1,11 +1,17 @@
 import type * as mqtt from 'mqtt/dist/mqtt.min';
 
 interface Topic {
-  name: string,
+  path: string,
   qos: mqtt.QoS,
   messages?: Array<string | object>
 };
 
 type ListOfTopics = Array<Topic>;
 
-export type { Topic, ListOfTopics }
+interface Publish {
+  topic: string,
+  qos: mqtt.QoS,
+  payload: string | Buffer,
+}
+
+export type { Topic, ListOfTopics, Publish }

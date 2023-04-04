@@ -17,9 +17,9 @@ let myTopic: string = '';
 let myQoS: mqtt.QoS = 0;
 
 function newSub(): void {
-  console.log('sub info:', { topic: myTopic, qos: myQoS })
+  console.log('sub info:', { path: myTopic, qos: myQoS })
   aedes.newSubscription({
-    topic: myTopic,
+    path: myTopic,
     qos: myQoS,
   });
 }
