@@ -5,22 +5,16 @@ import { ref } from 'vue';
 
 // Aedes store
 const aedes = useAedesStore();
-const topics = aedes.listOfTopics;
 const subs = ref(aedes.listOfSubscriptions);
-
-topics.forEach(topic => {
-  aedes.newSubscription(topic);
-});
-
 </script>
 
 <template>
   <section class="subs">
     <DashboardCard
-      v-for="subscription in subs"
+      v-for="subscription in subs.filter(e => e.path !== 'motor/avisos')"
       :key="(subscription.path as string)"
-      :path="subscription.path"
-      :qos="subscription.qos"
+      :path="(subscription.path as string)"
+      :messages="(subscription.messages as string[])"
     />
   </section>
 </template>

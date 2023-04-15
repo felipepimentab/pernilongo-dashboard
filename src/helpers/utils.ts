@@ -2,54 +2,66 @@ function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-function topicName(topic: string): string {
+import type { TopicInfo } from "@/types/aedes";
+
+function topicInfo(topic: string): TopicInfo {
   switch (topic) {
     case 'motor/estado':
-      return 'Estado';
+      return {
+        name: 'Estado',
+        label: '',
+        icon: 'Motor',
+        color: 'green',
+      };
     
     case 'motor/velocidade':
-      return 'Velocidade';
+      return {
+        name: 'Velocidade',
+        label: 'rpm',
+        icon: 'Speedometer',
+        color: 'red',
+      };
     
     case 'motor/tensao':
-      return 'Tensão';
+      return {
+        name: 'Tensão',
+        label: 'V',
+        icon: 'Voltage',
+        color: 'blue',
+      };
     
     case 'motor/corrente':
-      return 'Corrente';
+      return {
+        name: 'Corrente',
+        label: 'A',
+        icon: 'Current',
+        color: 'red',
+      };
     
     case 'motor/temperatura':
-      return 'Temperatura';
+      return {
+        name: 'Temperatura',
+        label: '°C',
+        icon: 'Temperature',
+        color: 'red',
+      };
     
     case 'motor/avisos':
-      return 'Avisos';
+      return {
+        name: 'Avisos',
+        label: '',
+        icon: 'Warning',
+        color: 'yellow',
+      };
     
     default:
-      return 'Mensagem';
+      return {
+        name: 'Mensagem',
+        label: '',
+        icon: 'Box',
+        color: 'red',
+      };
   }
 }
 
-function topicIcon(topic: string): string {
-  switch (topic) {
-    case 'motor/estado':
-      return 'Motor';
-    
-    case 'motor/velocidade':
-      return 'Speedometer';
-    
-    case 'motor/tensao':
-      return 'Voltage';
-    
-    case 'motor/corrente':
-      return 'Current';
-    
-    case 'motor/temperatura':
-      return 'Temperature';
-    
-    case 'motor/avisos':
-      return 'Warning';
-    
-    default:
-      return 'Box';
-  }
-}
-
-export { capitalize, topicName, topicIcon }
+export { capitalize, topicInfo }

@@ -19,6 +19,7 @@ export default defineConfig({
         @import "@/assets/scss/colors.scss";
         @import "@/assets/scss/breakpoints.scss";
         @import "@/assets/scss/normalize.scss";
+        @import "@/assets/scss/loading.scss";
         `,
       },
     },

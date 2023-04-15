@@ -28,7 +28,7 @@ const topicsList: ListOfTopics = [
     qos: 0,
   },
   {
-    path: 'motor/tensão',
+    path: 'motor/tensao',
     qos: 0,
   },
   {

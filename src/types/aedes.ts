@@ -14,4 +14,11 @@ interface Publish {
   payload: string | Buffer,
 }
 
-export type { Topic, ListOfTopics, Publish }
+type TopicInfo = {
+  name: string,
+  label: string,
+  icon: string,
+  color: string,
+}
+
+export type { Topic, ListOfTopics, Publish, TopicInfo }

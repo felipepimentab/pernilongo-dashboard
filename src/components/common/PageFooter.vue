@@ -54,8 +54,10 @@ import { RouterLink } from 'vue-router'
   position: fixed;
   bottom: 0;
   width: 100vw;
-  background-color: $white;
-  border-top: 1px solid gainsboro;
+  background-color: rgba($white, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid #dcdcdc;
 }
 
 .nav {

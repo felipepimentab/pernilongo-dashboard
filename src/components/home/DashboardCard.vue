@@ -1,75 +1,135 @@
 <script lang="ts" setup>
-import { toRefs, ref } from 'vue';
-import type { Ref } from 'vue';
-import { topicName, topicIcon, capitalize } from '@/helpers/utils';
+import { toRefs } from 'vue';
+import { topicInfo } from '@/helpers/utils';
 
 const props = defineProps<{
   path: string,
-  qos: number,
   messages?: Array<string>
   }>();
-const { path, qos, messages } = toRefs(props);
+const { path, messages } = toRefs(props);
 
-const active: Ref<boolean> = ref(false);
-function toggleActive(): void {
-  active.value = !active.value;
-};
+const loading = false;
 </script>
 
 <template>
   <article
     class="card"
-    :class="{ 'card--active': active }"
-    @click="toggleActive"
   >
-    <SvgComponent
-    :icon="topicIcon(path)"
-    class="card__icon"
-    :title="path"
-    />
-    <div>
-      <h3 class="card__topic">{{ topicName(path) }}</h3>
-      <p v-if="messages" class="card__preview">{{ capitalize(messages[messages.length - 1]) }}</p>
-    </div>
+    <article class="card__head">
+      <div
+        class="card__head__left"
+        :class="topicInfo(path).color"
+      >
+        <SvgComponent
+          :icon="topicInfo(path).icon"
+          class="card__icon"
+          :title="path"
+        />
+        <h3>{{ topicInfo(path).name }}</h3>
+      </div>
+      <div class="card__head__right">
+        <span v-if="!loading">12:21</span>
+        <div v-else class="loading-gray-small"></div>
+        <SvgComponent
+          icon="Arrow"
+          class="card__arrow"
+        />
+      </div>
+    </article>
+    <article class="card__content">
+      <p v-if="!loading">195</p>
+      <p v-if="!loading">{{ messages }}</p>
+      <div v-else class="loading-black"></div>
+      <span v-if="!loading">{{ topicInfo(path).label }}</span>
+      <div v-else class="loading-gray" />
+    </article>
   </article>
 </template>
 
 <style lang="scss" scoped>
 .card {
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   transition: all 0.3s ease-in-out;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  column-gap: 0.5rem;
-  font-weight: bold;
-  background-color: white; //
-  transition: background-color 0.3s ease-in-out;
+  display: grid;
+  grid-template-columns: 100%;
+  row-gap: 0.5rem;
+  background-color: white;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    &__left,
+    &__right {
+      display: flex;
+      align-items: center;
+    }
+    
+    &__left {
+      column-gap: 0.5rem;
+      font-weight: bold;
+    }
+    
+    &__right {
+      color: $text-gray;
+      fill: $text-gray;
+      column-gap: 0.25rem;
+      font-size: 0.875rem;
+    }
+  }
     
   &__icon {
-    height: 1rem;
-    width: 1rem;
-    fill: $text-dark;
-    overflow: visible;
-    box-sizing: content-box;
-    transition: background-color 0.3s ease-in-out;
+    height: 1.25rem;
+    width: 1.25rem;
   }
 
-  &__topic {
-    font-size: 1rem;
+  &__arrow {
+    height: 0.875rem;
+    width: 0.875rem;
+    transform: rotate(90deg);
   }
 
-  &__preview {
-    font-size: 0.875rem;
+  &__content {
+    display: flex;
+    align-items: baseline;
+    column-gap: 0.125rem;
+
+    p {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    span {
+      color: $text-gray;
+    }
   }
 
   &:hover {
     cursor: pointer;
   }
+}
+
+.blue {
+  color: $blue-warning;
+  fill: $blue-warning;
+}
+
+.red {
+  color: $red-warning;
+  fill: $red-warning;
+}
+
+.green {
+  color: $green-warning;
+  fill: $green-warning;
+}
+
+.yellow {
+  color: $yellow-warning;
+  fill: $yellow-warning;
 }
 
 </style>
