@@ -94,7 +94,7 @@ export const useAedesStore = defineStore('aedes', () => {
           const index = listOfSubscriptions.value.findIndex(sub => sub.path === path);
 
           if(listOfSubscriptions.value[index].messages) {
-            listOfSubscriptions.value[index].messages.push(message);
+            listOfSubscriptions.value[index].messages?.push(message);
           }
 
           console.log(`received message: ${message} from topic: ${path}`);
