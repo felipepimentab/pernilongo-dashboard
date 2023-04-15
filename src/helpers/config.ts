@@ -11,7 +11,7 @@ const config = {
   endpoint: '' as string,
 
   // ID do cliente:
-  clientId: 'dashboard_web' as string,
+  clientId: 'web' as string,
 
   // Auth:
   username: 'pernilongo-broker' as string,
