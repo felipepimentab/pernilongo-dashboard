@@ -9,11 +9,18 @@ const connected: Ref<boolean> = ref(aedes.client.connected);
 
 <template>
   <section class="connection">
-    <SvgComponent
-      icon="Mosquito"
-      class="connection__icon"
-    />
-    <div>
+    <div class="connection__head">
+      <p>Status da conexão</p>
+      <button>
+        <SvgComponent
+          icon="Close"
+          title="Fechar"
+          class="connection__head__icon"
+        />
+      </button>
+    </div>
+    <div class="connection__content">
+
       <h2 class="connection__name">
         Pernilongo Broker
       </h2>
@@ -29,31 +36,42 @@ const connected: Ref<boolean> = ref(aedes.client.connected);
 
 <style lang="scss" scoped>
 .connection {
-  display: flex;
+  display: grid;
   align-items: center;
-  width: fit-content;
-  padding: 0.5rem 1rem;
-  border-radius: 100rem;
+  width: 100%;
+  background-color: $white;
+  border-radius: 0.5rem;
   column-gap: 1rem;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  background-color: $card-bg-light;
   transition: background-color 0.3s ease-in-out;
-  
-  &__icon {
-    fill: $text-light;
-    height: 2rem;
-    width: 2rem;
+
+  &__head {
+    background-color: $yellow-warning;
+    font-weight: bold;
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 0.25rem 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__icon {
+      height: 1rem;
+      width: 1rem;
+    }
+  }
+
+  &__content {
+    padding: 0.25rem 1rem;
   }
   
   &__name {
     font-weight: bold;
-    color: $text-light;
     transition: color 0.3s ease-in-out;
   }
   
   &__status {
-    color: $text-light;
     transition: color 0.3s ease-in-out;
 
     .state {
@@ -63,21 +81,6 @@ const connected: Ref<boolean> = ref(aedes.client.connected);
     
     .connected {
       color: green;
-    }
-  }
-}
-
-.dark {
-  .connection {
-    background-color: $card-bg-dark;
-
-    &__icon {
-      fill: $text-dark;
-    }
-
-    &__name,
-    &__status {
-      color: $text-dark;
     }
   }
 }

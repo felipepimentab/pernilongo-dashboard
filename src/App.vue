@@ -23,8 +23,7 @@ body {
 
 html {
   transition: background-color 0.3s ease-in-out;
-  background-color: $bg-fallback-light;
-  // background-image: linear-gradient(225deg, $bg-pink-light 0%, $bg-purple-light 50%, $bg-blue-light 100%);
+  background-color: $main-bg;
 }
 
 .wrapper {
@@ -33,18 +32,9 @@ html {
   height: 100%;
   width: 100vw;
   font-family: $font-sans;
-  color: $text-light;
+  color: $text-dark;
   position: relative;
   padding-bottom: 4rem;
   transition: color 0.3s ease-in-out;
-}
-
-.dark {
-  background-color: $bg-fallback-dark;
-  // background-image: linear-gradient(225deg, $bg-pink-dark 0%, $bg-purple-dark 50%, $bg-blue-dark 100%);
-
-  .wrapper {
-    color: $text-dark;
-  }
 }
 </style>

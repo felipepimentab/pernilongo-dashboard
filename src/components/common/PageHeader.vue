@@ -1,29 +1,13 @@
 <script setup lang="ts">
-import { useDark, useToggle } from '@vueuse/core';
+/* import { useDark, useToggle } from '@vueuse/core';
 
 const isDark = useDark()
-const toggleDark = useToggle(isDark)
-
-function addTopic(): void {
-  console.log('Add topic');
-}
+const toggleDark = useToggle(isDark) */
 </script>
 
 <template>
   <header class="header">
-    <ul class="options">
-      <li class="item">
-        <button
-          type="button"
-          @click.prevent="addTopic"
-        >
-          <SvgComponent
-            icon="Retry"
-            title="Recarregar"
-            class="item__icon"
-          />
-        </button>
-      </li>
+    <!-- <ul class="options">
       <li class="item">
         <button
           type="button"
@@ -43,8 +27,12 @@ function addTopic(): void {
           />
         </button>
       </li>
-    </ul>
-    <h1 class="title">IoT Dashboard</h1>
+    </ul> -->
+    <h1 class="header__title">IoT Dashboard</h1>
+    <SvgComponent
+      icon="Mosquito"
+      class="header__icon"
+    />
   </header>
 </template>
 
@@ -52,52 +40,24 @@ function addTopic(): void {
 .header {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  padding: 0.5rem $side-spacing;
-  row-gap: 0.5rem;
-  color: $text-light; //
-  transition: color 0.3s ease-in-out;
-}
-
-.title {
-  font-weight: bold;
-  font-size: 2rem;
-}
-
-.options {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
   align-items: center;
-  column-gap: 1rem;
-}
-
-.item {
-  list-style: none;
-  height: 1.5rem;
-  width: 1.5rem;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  button:focus {
-    outline: none;
+  justify-content: space-between;
+  padding: 2rem $side-spacing;
+  margin-top: 1rem;
+  transition: color 0.3s ease-in-out;
+  
+  &__title {
+    font-weight: bold;
+    font-size: 2rem;
   }
 
   &__icon {
-    height: 1.5rem;
-    fill: $text-light; //
-  }
-}
-
-.dark {
-  .header {
-    color: $text-dark;
-  }
-
-  .item__icon {
-    fill: $text-dark;
+    height: 2.5rem;
+    width: 2.5rem;
+    fill: $white;
+    background-color: $text-dark;
+    border-radius: $radius-full;
+    padding: 0.25rem;
   }
 }
 </style>

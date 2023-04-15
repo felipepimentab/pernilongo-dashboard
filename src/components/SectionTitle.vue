@@ -16,8 +16,7 @@
   grid-column-end: 3;
   display: flex;
   align-items: center;
-  column-gap: 0.5rem;
-  color: $text-light; //
+  column-gap: 0.25rem;
   transition: color 0.3s ease-in-out;
 
   &__text {
@@ -27,20 +26,10 @@
 
   &__icon {
     transform: rotate(90deg);
-    height: 0.75rem;
-    width: 0.75rem;
-    fill: rgba($text-light, 0.75); //
+    height: 1rem;
+    width: 1rem;
+    fill: $text-dark;
     transition: fill 0.3s ease-in-out;
-  }
-}
-
-.dark {
-  .section-title {
-    color: $text-dark;
-
-    &__icon {
-      fill: rgba($text-dark, 0.75);
-    }
   }
 }
 </style>

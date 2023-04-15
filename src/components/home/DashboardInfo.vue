@@ -30,7 +30,7 @@ topics.forEach(topic => {
   display: grid;
   width: 100%;
   max-width: calc(100vw - 2rem);
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   row-gap: 0.5rem;
   column-gap: 0.5rem;
 }

@@ -37,7 +37,7 @@ function toggleActive(): void {
 <style lang="scss" scoped>
 .card {
   padding: 0.5rem;
-  border-radius: 100rem;
+  border-radius: 0.5rem;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   transition: all 0.3s ease-in-out;
@@ -47,19 +47,15 @@ function toggleActive(): void {
   align-items: center;
   column-gap: 0.5rem;
   font-weight: bold;
-  background-color: $card-bg-light; //
-  color: $text-light;
+  background-color: white; //
   transition: background-color 0.3s ease-in-out;
     
   &__icon {
-    height: 1.5rem;
-    width: 1.5rem;
+    height: 1rem;
+    width: 1rem;
+    fill: $text-dark;
     overflow: visible;
-    border-radius: 100%;
-    padding: 0.5rem;
     box-sizing: content-box;
-    fill: $icon-yellow;
-    background-color: $icon-bg-light; //
     transition: background-color 0.3s ease-in-out;
   }
 
@@ -74,39 +70,6 @@ function toggleActive(): void {
   &:hover {
     cursor: pointer;
   }
-
-
-  &--active {
-    background-color: $card-bg-active-light; //
-    color: $text-active-light;
-    -webkit-box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.15);
-    -moz-box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.15);
-    box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.15);
-
-    .card__icon {
-      fill: $text-light; //
-      background-color: $icon-yellow-active; //
-    }
-  }
 }
 
-.dark {
-  .card {
-    background-color: $card-bg-dark; //
-
-    &__icon {
-      background-color: $icon-bg-dark; //
-    }
-
-    &--active {
-      background-color: $icon-bg-active-dark; //
-      color: $text-dark; //
-
-      .card__icon {
-        fill: $text-dark; //
-        background-color: $icon-yellow-active;
-      }
-    }
-  }
-}
 </style>

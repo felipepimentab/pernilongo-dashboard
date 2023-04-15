@@ -54,9 +54,8 @@ import { RouterLink } from 'vue-router'
   position: fixed;
   bottom: 0;
   width: 100vw;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background-color: $card-bg-light; //
+  background-color: $white;
+  border-top: 1px solid gainsboro;
 }
 
 .nav {
@@ -81,7 +80,6 @@ import { RouterLink } from 'vue-router'
   }
 
   &__icon {
-    fill: $text-light;
     height: 1.5rem;
 
     &--outline {
@@ -102,16 +100,6 @@ import { RouterLink } from 'vue-router'
     
     &--filled {
       display: block;
-    }
-  }
-}
-
-.dark {
-  .footer {
-    background-color: $card-bg-dark;
-
-    .link__icon {
-      fill: $text-dark;
     }
   }
 }

@@ -7,46 +7,12 @@ $white: #fff;
 $black: #000;
 $transparent: transparent;
 
-// Theme Light
-$text-light: #e2e4e4;
-$text-active-light: #0b0d10;
-$card-light: #00051d;
+// Light
+$main-bg: #eaeff3;
+$text-dark: #3a3a3a;
+$red-warning: #fc7575;
+$yellow-warning: #ffd753;
+$green-warning: #91d3ae;
+$blue-warning: #878bd3;
 
-$card-bg-light: rgba($card-light, 0.25);
-$card-bg-active-light: rgba($text-light, 0.85);
-
-$icon-bg-light: rgba($card-light, 0.25);
-$icon-bg-active-light: rgba($card-light, 0.75);
-
-$bg-pink-light: #ff3cac;
-$bg-purple-light: #784ba0;
-$bg-blue-light: #2b86c5;
-
-$bg-fallback-light: $bg-blue-light;
-
-// Theme Dark
-$text-dark: #f4f5f5;
-$card-dark: #0b0d10;
-
-$card-bg-dark: rgba($card-dark, 0.5);
-$card-active-dark: rgba($card-dark, 0.75);
-
-$icon-bg-dark: rgba($card-dark, 0.3);
-$icon-bg-active-dark: rgba($card-dark, 0.75);
-
-$bg-pink-dark: #4e1736;
-$bg-purple-dark: #22162c;
-$bg-blue-dark: #0d2230;
-
-$bg-fallback-dark: $bg-blue-dark;
-
-// Icons
-$icon-red: #ff6f6f;
-$icon-yellow: #ffda47;
-$icon-green: #83ff94;
-$icon-blue: #60a2ff;
-
-$icon-red-active: #ff6f6f;
-$icon-yellow-active: #caa40d;
-$icon-green-active: #83ff94;
-$icon-blue-active: #60a2ff;
+// Dark
