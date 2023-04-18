@@ -1,17 +1,23 @@
 import type * as mqtt from 'mqtt/dist/mqtt.min';
 
-interface Topic {
-  path: string,
+type Message = {
+  payload: string | boolean | number,
+  date: Date,
+}
+
+interface Subscription {
+  topic: string,
   qos: mqtt.QoS,
-  messages?: Array<string | object>
+  messages?: Message[],
+  current?: string | boolean | number,
 };
 
-type ListOfTopics = Array<Topic>;
+type ListOfSubscriptions = Array<Subscription>;
 
 interface Publish {
   topic: string,
   qos: mqtt.QoS,
-  payload: string | Buffer,
+  payload: string | object | number | Buffer,
 }
 
 type TopicInfo = {
@@ -21,4 +27,4 @@ type TopicInfo = {
   color: string,
 }
 
-export type { Topic, ListOfTopics, Publish, TopicInfo }
+export type { Message, Subscription, ListOfSubscriptions, Publish, TopicInfo }

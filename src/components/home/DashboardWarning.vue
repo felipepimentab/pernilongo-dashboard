@@ -1,16 +1,20 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  warning?: string
-}>();
+import { formatDate } from '@/helpers/utils';
+import { useAedesStore } from '@/stores/aedes';
+const warnings = useAedesStore().avisos;
 
-const emit = defineEmits([
-  'close'
-]);
+function warningMsg(): string {
+  return warnings.messages ? warnings.messages[0].payload.toString() : '';
+}
+
+function warningDate(): string {
+  return warnings.messages ? formatDate(warnings.messages[0].date) : '';
+}
 </script>
 
 <template>
   <section
-      v-if="warning"
+      v-if="warningMsg() !== ''"
       class="warning"
     >
     <div class="warning__head">
@@ -21,16 +25,17 @@ const emit = defineEmits([
         />
         <p>Aviso</p>
       </div>
-      <button @click="emit('close')">
+      <!-- <button>
         <SvgComponent
           icon="Close"
           title="Fechar"
           class="warning__head__icon"
         />
-      </button>
+      </button> -->
+      <span v-if="warnings.messages?.length">{{ warningDate() }}</span>
     </div>
-    <p class="warning__content">
-      {{ warning }}
+    <p v-if="warnings.messages?.length" class="warning__content">
+      {{ warningMsg() }}
     </p>
   </section>
 </template>

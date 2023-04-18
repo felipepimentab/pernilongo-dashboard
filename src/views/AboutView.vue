@@ -66,6 +66,11 @@ const createConnection = () => {
     const { protocol, host, port, endpoint, ...options } = connection;
     const connectUrl = `${protocol}://${host}:${port}${endpoint}`;
     client.value = mqtt.connect(connectUrl, options);
+    console.group('About');
+    console.log('connection:', connection);
+    console.log('connectUrl:', connectUrl);
+    console.log('client.value:', client.value);
+    console.groupEnd();
     if (client.value.on) {
       client.value.on("connect", () => {
         btnLoadingType.value = "";

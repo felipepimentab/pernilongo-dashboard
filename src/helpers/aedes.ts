@@ -1,18 +1,8 @@
-<script setup lang="ts">
-// Components
-import DashboardInfo from '@/components/home/DashboardInfo.vue'
-import DashboardDetails from '@/components/home/DashboardDetails.vue'
-import DashboardActions from '@/components/home/DashboardActions.vue'
-import SectionTitle from '@/components/SectionTitle.vue';
-import DashboardWarning from '@/components/home/DashboardWarning.vue';
-
 // vue 3 + vite use MQTT.js refer to https://github.com/mqttjs/MQTT.js/issues/1269
-import { topicsList } from '@/helpers/config';
 import * as mqtt from "mqtt/dist/mqtt.min";
 import { reactive, ref } from "vue";
-import type { Subscription } from '@/types/aedes';
-import { useAedesStore } from '@/stores/aedes';
-const aedes = useAedesStore();
+
+const qosList = [0, 1, 2];
 
 const connection = reactive({
   protocol: "ws",
@@ -30,6 +20,10 @@ const connection = reactive({
   password: "pernilongo12345",
 });
 
+const subscription = ref({
+  topic: "mqtt/teste",
+  qos: 0 as mqtt.QoS,
+});
 const publish = ref({
   topic: "mqtt/teste",
   qos: 0 as mqtt.QoS,
@@ -40,6 +34,7 @@ let client = ref({
   connected: false,
 } as mqtt.MqttClient);
 const subscribeSuccess = ref(false);
+const btnLoadingType = ref("");
 const retryTimes = ref(0);
 
 const initData = () => {
@@ -47,6 +42,7 @@ const initData = () => {
     connected: false,
   } as mqtt.MqttClient;
   retryTimes.value = 0;
+  btnLoadingType.value = "";
   subscribeSuccess.value = false;
 };
 
@@ -65,11 +61,18 @@ const handleOnReConnect = () => {
 
 const createConnection = () => {
   try {
+    btnLoadingType.value = "connect";
     const { protocol, host, port, endpoint, ...options } = connection;
     const connectUrl = `${protocol}://${host}:${port}${endpoint}`;
     client.value = mqtt.connect(connectUrl, options);
+    console.group('About');
+    console.log('connection:', connection);
+    console.log('connectUrl:', connectUrl);
+    console.log('client.value:', client.value);
+    console.groupEnd();
     if (client.value.on) {
       client.value.on("connect", () => {
+        btnLoadingType.value = "";
         console.log("connection successful");
       });
       client.value.on("reconnect", handleOnReConnect);
@@ -78,23 +81,25 @@ const createConnection = () => {
       });
       client.value.on("message", (topic: string, message) => {
         receiveNews.value = receiveNews.value.concat(message.toString());
-        aedes.receiveMessage(topic, message);
         console.log(`received message: ${message} from topic: ${topic}`);
       });
     }
   } catch (error) {
+    btnLoadingType.value = "";
     console.log("mqtt.connect error:", error);
   }
 };
 
 // subscribe topic
 // https://github.com/mqttjs/MQTT.js#mqttclientsubscribetopictopic-arraytopic-object-options-callback
-function doSubscribe(subscription: Subscription) {
-  const { topic, qos } = subscription;
+const doSubscribe = () => {
+  btnLoadingType.value = "subscribe";
+  const { topic, qos } = subscription.value;
   client.value.subscribe(
     topic,
     { qos },
     (error: Error, granted: mqtt.ISubscriptionGrant[]) => {
+      btnLoadingType.value = "";
       if (error) {
         console.log("subscribe error:", error);
         return;
@@ -107,9 +112,11 @@ function doSubscribe(subscription: Subscription) {
 
 // unsubscribe topic
 // https://github.com/mqttjs/MQTT.js#mqttclientunsubscribetopictopic-array-options-callback
-function doUnSubscribe (subscription: Subscription) {
-  const { topic, qos } = subscription;
+const doUnSubscribe = () => {
+  btnLoadingType.value = "unsubscribe";
+  const { topic, qos } = subscription.value;
   client.value.unsubscribe(topic, { qos }, (error) => {
+    btnLoadingType.value = "";
     subscribeSuccess.value = false;
     if (error) {
       console.log("unsubscribe error:", error);
@@ -122,8 +129,10 @@ function doUnSubscribe (subscription: Subscription) {
 // publish message
 // https://github.com/mqttjs/MQTT.js#mqttclientpublishtopic-message-options-callback
 const doPublish = () => {
+  btnLoadingType.value = "publish";
   const { topic, qos, payload } = publish.value;
   client.value.publish(topic, payload, { qos }, (error) => {
+    btnLoadingType.value = "";
     if (error) {
       console.log("publish error:", error);
       return;
@@ -136,12 +145,14 @@ const doPublish = () => {
 // https://github.com/mqttjs/MQTT.js#mqttclientendforce-options-callback
 const destroyConnection = () => {
   if (client.value.connected) {
+    btnLoadingType.value = "disconnect";
     try {
       client.value.end(false, () => {
         initData();
         console.log("disconnected successfully");
       });
     } catch (error) {
+      btnLoadingType.value = "";
       console.log("disconnect error:", error);
     }
   }
@@ -150,59 +161,3 @@ const destroyConnection = () => {
 const handleProtocolChange = (value: string) => {
   connection.port = value === "wss" ? 8084 : 8083;
 };
-
-function inscrever() {
-  topicsList.forEach(sub => {
-    //subscription.value = sub;
-    doSubscribe(sub);
-  })
-}
-
-createConnection();
-inscrever();
-</script>
-
-<template>
-  <main class="main">
-    <!-- <DashboardWarning /> -->
-    
-    <SectionTitle>
-      Informações
-    </SectionTitle>
-    <DashboardInfo />
-    
-    <SectionTitle>
-      Detalhes
-    </SectionTitle>
-    <DashboardDetails />
-    
-    <SectionTitle>
-      Comandos
-    </SectionTitle>
-    <DashboardActions />
-  </main>
-</template>
-
-<style lang="scss" scoped>
-.main {
-  padding: 0.5rem $side-spacing;
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-}
-
-.teste {
-  display: block;
-
-  label: {
-    display: block;
-  }
-
-  input {
-    display: block;
-    background-color: rgba(white, 0.15);
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-  }
-}
-</style>

@@ -1,20 +1,28 @@
 <script lang="ts" setup>
 import { useAedesStore } from '@/stores/aedes';
 import DashboardCard from './DashboardCard.vue';
-import { ref } from 'vue';
 
 // Aedes store
 const aedes = useAedesStore();
-const subs = ref(aedes.listOfSubscriptions);
+const { estado, velocidade, tensao, corrente, temperatura } = aedes;
 </script>
 
 <template>
   <section class="subs">
     <DashboardCard
-      v-for="subscription in subs.filter(e => e.path !== 'motor/avisos')"
-      :key="(subscription.path as string)"
-      :path="(subscription.path as string)"
-      :messages="(subscription.messages as string[])"
+      :subscription="(estado)"
+    />
+    <DashboardCard
+      :subscription="(velocidade)"
+    />
+    <DashboardCard
+      :subscription="(tensao)"
+    />
+    <DashboardCard
+      :subscription="(corrente)"
+    />
+    <DashboardCard
+      :subscription="(temperatura)"
     />
   </section>
 </template>

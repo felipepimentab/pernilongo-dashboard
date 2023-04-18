@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { toRefs } from 'vue';
-import { topicInfo } from '@/helpers/utils';
+import { topicInfo, formatDate } from '@/helpers/utils';
+import type { Subscription } from '@/types/aedes';
 
 const props = defineProps<{
-  path: string,
-  messages?: Array<string>
-  }>();
-const { path, messages } = toRefs(props);
+  subscription: Subscription,
+}>();
+const { subscription } = toRefs(props);
 
 const loading = false;
 </script>
@@ -18,17 +18,21 @@ const loading = false;
     <article class="card__head">
       <div
         class="card__head__left"
-        :class="topicInfo(path).color"
+        :class="topicInfo(subscription.topic).color"
       >
         <SvgComponent
-          :icon="topicInfo(path).icon"
+          :icon="topicInfo(subscription.topic).icon"
           class="card__icon"
-          :title="path"
+          :title="subscription.topic"
         />
-        <h3>{{ topicInfo(path).name }}</h3>
+        <h3>
+          {{ topicInfo(subscription.topic).name }}
+        </h3>
       </div>
       <div class="card__head__right">
-        <span v-if="!loading">12:21</span>
+        <span v-if="!loading && subscription.messages?.length">
+          {{ formatDate(subscription.messages[0].date) }}
+        </span>
         <div v-else class="loading-gray-small"></div>
         <SvgComponent
           icon="Arrow"
@@ -37,10 +41,12 @@ const loading = false;
       </div>
     </article>
     <article class="card__content">
-      <p v-if="!loading">195</p>
-      <p v-if="!loading">{{ messages }}</p>
-      <div v-else class="loading-black"></div>
-      <span v-if="!loading">{{ topicInfo(path).label }}</span>
+      <p v-if="!loading && subscription.messages?.length">
+        {{ subscription.messages[0].payload }}
+      </p>
+      <span v-if="!loading && subscription.messages?.length">
+        {{ topicInfo(subscription.topic).label }}
+      </span>
       <div v-else class="loading-gray" />
     </article>
   </article>

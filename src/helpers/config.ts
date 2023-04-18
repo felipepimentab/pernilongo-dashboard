@@ -1,4 +1,4 @@
-import type { ListOfTopics } from "@/types/aedes";
+import type { ListOfSubscriptions } from "@/types/aedes";
 
 /* 
  *  Config options
@@ -18,29 +18,29 @@ const config = {
   password: 'pernilongo12345' as string,
 }
 
-const topicsList: ListOfTopics = [
+const topicsList: ListOfSubscriptions = [
   {
-    path: 'motor/estado',
+    topic: '/motor/estado',
     qos: 0,
   },
   {
-    path: 'motor/velocidade',
+    topic: '/motor/velocidade',
     qos: 0,
   },
   {
-    path: 'motor/tensao',
+    topic: '/motor/tensao',
     qos: 0,
   },
   {
-    path: 'motor/corrente',
+    topic: '/motor/corrente',
     qos: 0,
   },
   {
-    path: 'motor/avisos',
+    topic: '/motor/avisos',
     qos: 0,
   },
   {
-    path: 'motor/temperatura',
+    topic: '/motor/temperatura',
     qos: 0,
   }
 ];
