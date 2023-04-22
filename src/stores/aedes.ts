@@ -40,8 +40,9 @@ export const useAedesStore = defineStore('aedes', () => {
     messages: [],
   });
 
-  function receiveMessage(topic: string, message: Buffer) {
-    const date = new Date();
+  function receiveMessage(topic: string, msg: Buffer) {
+    const date = new Date(JSON.parse(msg.toString()).time);
+    const message = JSON.parse(msg.toString()).message;
   
     switch (topic) {
       case '/motor/estado':

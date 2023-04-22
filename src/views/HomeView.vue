@@ -24,7 +24,7 @@ const connection = reactive({
   clean: true,
   connectTimeout: 30 * 1000, // ms
   reconnectPeriod: 4000, // ms
-  clientId: "web",
+  clientId: "web_" + Math.random().toString(16).substr(2, 8),
   // auth
   username: "pernilongo-broker",
   password: "pernilongo12345",

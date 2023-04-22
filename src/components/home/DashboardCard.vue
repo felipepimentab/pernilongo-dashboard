@@ -41,8 +41,11 @@ const loading = false;
       </div>
     </article>
     <article class="card__content">
-      <p v-if="!loading && subscription.messages?.length">
-        {{ subscription.messages[0].payload }}
+      <p v-if="!loading && subscription.messages?.length && (typeof(subscription.messages[0].payload) !== 'boolean')">
+        {{ subscription.messages[0].payload.toString() }}
+      </p>
+      <p v-else-if="!loading && subscription.messages?.length">
+        {{ subscription.messages[0].payload.toString() === 'true' ? 'Ligado' : 'Desligado' }}
       </p>
       <span v-if="!loading && subscription.messages?.length">
         {{ topicInfo(subscription.topic).label }}
