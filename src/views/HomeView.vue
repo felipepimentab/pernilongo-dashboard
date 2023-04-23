@@ -11,6 +11,7 @@ import * as mqtt from "mqtt/dist/mqtt.min";
 import { reactive, ref } from "vue";
 import type { Subscription } from '@/types/aedes';
 import { useAedesStore } from '@/stores/aedes';
+import HomeHeader from '@/components/home/HomeHeader.vue';
 const aedes = useAedesStore();
 
 const connection = reactive({
@@ -163,19 +164,10 @@ inscrever();
 
 <template>
   <main class="main">
+    <HomeHeader />
     <!-- <DashboardWarning /> -->
     <DashboardInfo />
     <!-- <DashboardDetails /> -->
     <!-- <DashboardActions /> -->
   </main>
 </template>
-
-<style lang="scss" scoped>
-.main {
-  padding: 0.5rem $side-spacing;
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-  margin-bottom: 2rem;
-}
-</style>

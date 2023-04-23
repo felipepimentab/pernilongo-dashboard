@@ -1,51 +1,53 @@
-<script setup lang="ts">
-// https://vueuse.org/core/useDark/
-import { useDark, useToggle } from '@vueuse/core';
-
-const isDark = useDark()
-const toggleDark = useToggle(isDark)
-</script>
-
 <template>
   <header class="header">
-    <h1 class="header__title">IoT Dashboard</h1>
-    <SvgComponent
-      icon="Mosquito"
-      class="header__icon"
-      @click="toggleDark()"
-    />
+    <router-link
+      class="header__link"
+      :to="{ name: 'home' }"
+    >
+      <SvgComponent
+        icon="Arrow"
+        class="header__link__arrow"
+      />
+      Voltar
+    </router-link>
+    <h1 class="header__title">
+      <slot />
+    </h1>
   </header>
 </template>
 
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem $side-spacing;
-  margin-top: 3rem;
-  transition: all 0.3s ease-in-out;
-  
+
+  &__link {
+    color: $blue;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    column-gap: 0.25rem;
+
+    &__arrow {
+      fill: $blue;
+      height: 0.85rem;
+      width: 0.85rem;
+      transform: rotate(-90deg);
+    }
+  }
+
   &__title {
     font-weight: bold;
     font-size: 2rem;
   }
-
-  &__icon {
-    height: 2.5rem;
-    width: 2.5rem;
-    fill: $text-color;
-    background-color: $white;
-    border-radius: $radius-full;
-    padding: 0.25rem;
-  }
 }
 
 .dark {
-  .header__icon {
-    fill: $text-color--dark;
-    background-color: $gray-6--dark;
+  .header__link {
+    color: $blue--dark;
+
+    &__arrow {
+      fill: $blue--dark;
+    }
   }
 }
 </style>

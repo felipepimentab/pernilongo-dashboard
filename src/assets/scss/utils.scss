@@ -1,3 +1,14 @@
+.main {
+  padding: 2rem $side-spacing;
+  display: flex;
+  position: absolute;
+  width: 100%;
+  flex-direction: column;
+  row-gap: 1rem;
+  top: 0;
+  transition: all 0.3s ease-in-out;
+}
+
 .loading-gray {
   animation: pulse-gray 1s infinite;
   border-radius: 0.25rem;

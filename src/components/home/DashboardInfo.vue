@@ -12,21 +12,36 @@ const { estado, velocidade, tensao, corrente, temperatura } = aedes;
     <h2 class="subs__title">
       Resumo
     </h2>
-    <DashboardCard
-      :subscription="(estado)"
-    />
-    <DashboardCard
-      :subscription="(velocidade)"
-    />
-    <DashboardCard
-      :subscription="(tensao)"
-    />
-    <DashboardCard
-      :subscription="(corrente)"
-    />
-    <DashboardCard
-      :subscription="(temperatura)"
-    />
+  
+    <router-link :to="{ name: 'estado' }">
+      <DashboardCard
+        :subscription="(estado)"
+      />
+    </router-link>
+
+    <router-link :to="{ name: 'velocidade' }">
+      <DashboardCard
+        :subscription="(velocidade)"
+      />
+    </router-link>
+
+    <router-link :to="{ name: 'tensao' }">
+      <DashboardCard
+        :subscription="(tensao)"
+      />
+    </router-link>
+
+    <router-link :to="{ name: 'corrente' }">
+      <DashboardCard
+        :subscription="(corrente)"
+      />
+    </router-link>
+
+    <router-link :to="{ name: 'temperatura' }">
+      <DashboardCard
+        :subscription="(temperatura)"
+      />
+    </router-link>
   </section>
 </template>
 

@@ -7,15 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/config',
-      name: 'config',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/ConfigView.vue')
+      component: HomeView,
     },
     {
       path: '/about',
@@ -24,7 +16,37 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
-    }
+    },
+    {
+      path: '/avisos',
+      name: 'avisos',
+      component: () => import('../views/topics/AvisosView.vue')
+    },
+    {
+      path: '/corrente',
+      name: 'corrente',
+      component: () => import('../views/topics/CorrenteView.vue')
+    },
+    {
+      path: '/estado',
+      name: 'estado',
+      component: () => import('../views/topics/EstadoView.vue')
+    },
+    {
+      path: '/temperatura',
+      name: 'temperatura',
+      component: () => import('../views/topics/TemperaturaView.vue')
+    },
+    {
+      path: '/tensao',
+      name: 'tensao',
+      component: () => import('../views/topics/TensaoView.vue')
+    },
+    {
+      path: '/velocidade',
+      name: 'velocidade',
+      component: () => import('../views/topics/VelocidadeView.vue')
+    },
   ]
 })
 
