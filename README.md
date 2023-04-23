@@ -37,7 +37,10 @@ npm run build
 ## 🛠️ Tecnologias
 Este projeto foi criado utilizando o framework **Vue 3**, com **TypeScript** para tipagem. Para testes unitários foi escolhido o **Vitest**. Para testes *End-to-End* (E2E) foi escolhido o **Cypress**. O projeto conta também com **Vue Router** para roteamento de páginas e **Pinia** para gerenciamento de estados.
 
-## ☕ Arquitetura
+## ☕ Arquitetura geral
+
+O projeto **IoT Dashboard** é um cliente que se conecta com um *broker* mqtt hospedado em núvem (AWS). De acordo com os padrões do mqtt, a transferência de informações é feita através de **tópicos** nos quais os clientes podem se **inscrever** e **publicar**.
+
 <img src="esboco.jpg" alt="Esboço">
 
 ### Estrutura de tópicos do broker

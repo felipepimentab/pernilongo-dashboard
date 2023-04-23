@@ -50,7 +50,7 @@ function warningDate(): string {
   row-gap: 0.5rem;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  transition: background-color 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &__head {
     background-color: $yellow-warning;
@@ -71,7 +71,7 @@ function warningDate(): string {
     &__icon {
       height: 1rem;
       width: 1rem;
-      fill: $text-dark;
+      fill: $text-color;
     }
   }
 

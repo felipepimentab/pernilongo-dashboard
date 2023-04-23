@@ -9,6 +9,9 @@ const { estado, velocidade, tensao, corrente, temperatura } = aedes;
 
 <template>
   <section class="subs">
+    <h2 class="subs__title">
+      Resumo
+    </h2>
     <DashboardCard
       :subscription="(estado)"
     />
@@ -35,5 +38,10 @@ const { estado, velocidade, tensao, corrente, temperatura } = aedes;
   grid-template-columns: 1fr;
   row-gap: 0.5rem;
   column-gap: 0.5rem;
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
 }
 </style>

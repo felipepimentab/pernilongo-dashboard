@@ -1,37 +1,18 @@
 <script setup lang="ts">
-/* import { useDark, useToggle } from '@vueuse/core';
+// https://vueuse.org/core/useDark/
+import { useDark, useToggle } from '@vueuse/core';
 
 const isDark = useDark()
-const toggleDark = useToggle(isDark) */
+const toggleDark = useToggle(isDark)
 </script>
 
 <template>
   <header class="header">
-    <!-- <ul class="options">
-      <li class="item">
-        <button
-          type="button"
-          @click.prevent="toggleDark()"
-        >
-          <SvgComponent
-            v-if="isDark"
-            icon="DarkMode"
-            title="Modo escuro"
-            class="item__icon"
-            />
-          <SvgComponent
-            v-else
-            icon="LightMode"
-            title="Modo claro"
-            class="item__icon"
-          />
-        </button>
-      </li>
-    </ul> -->
     <h1 class="header__title">IoT Dashboard</h1>
     <SvgComponent
       icon="Mosquito"
       class="header__icon"
+      @click="toggleDark()"
     />
   </header>
 </template>
@@ -42,9 +23,9 @@ const toggleDark = useToggle(isDark) */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem $side-spacing;
-  margin-top: 1rem;
-  transition: color 0.3s ease-in-out;
+  padding: 0.5rem $side-spacing;
+  margin-top: 3rem;
+  transition: all 0.3s ease-in-out;
   
   &__title {
     font-weight: bold;
@@ -54,10 +35,17 @@ const toggleDark = useToggle(isDark) */
   &__icon {
     height: 2.5rem;
     width: 2.5rem;
-    fill: $white;
-    background-color: $text-dark;
+    fill: $text-color;
+    background-color: $white;
     border-radius: $radius-full;
     padding: 0.25rem;
+  }
+}
+
+.dark {
+  .header__icon {
+    fill: $text-color--dark;
+    background-color: $gray-6--dark;
   }
 }
 </style>

@@ -46,58 +46,46 @@ export const useAedesStore = defineStore('aedes', () => {
   
     switch (topic) {
       case '/motor/estado':
-        estado.value.messages?.unshift();
-        estado.value.messages?.push({
+        estado.value.messages?.splice(0, 0, {
           payload: !!message as boolean,
           date: date as Date,
         });
-        estado.value.messages?.unshift();
         console.log('estado:', estado.value);
         break;
     
       case '/motor/velocidade':
-        velocidade.value.messages?.unshift();
-        velocidade.value.messages?.push({
+        velocidade.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
-        velocidade.value.messages?.unshift();
         break;
     
       case '/motor/tensao':
-        tensao.value.messages?.unshift();
-        tensao.value.messages?.push({
+        tensao.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
-        tensao.value.messages?.unshift();
         break;
     
       case '/motor/corrente':
-        corrente.value.messages?.unshift();
-        corrente.value.messages?.push({
+        corrente.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
-        corrente.value.messages?.unshift();
         break;
     
       case '/motor/temperatura':
-        temperatura.value.messages?.unshift();
-        temperatura.value.messages?.push({
+        temperatura.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
-        temperatura.value.messages?.unshift();
         break;
     
       case '/motor/avisos':
-        avisos.value.messages?.unshift();
-        avisos.value.messages?.push({
+        avisos.value.messages?.splice(0, 0, {
           payload: message.toString() as string,
           date: date as Date,
         });
-        avisos.value.messages?.unshift();
         break;
     
       default:

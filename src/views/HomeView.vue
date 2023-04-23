@@ -3,7 +3,6 @@
 import DashboardInfo from '@/components/home/DashboardInfo.vue'
 import DashboardDetails from '@/components/home/DashboardDetails.vue'
 import DashboardActions from '@/components/home/DashboardActions.vue'
-import SectionTitle from '@/components/SectionTitle.vue';
 import DashboardWarning from '@/components/home/DashboardWarning.vue';
 
 // vue 3 + vite use MQTT.js refer to https://github.com/mqttjs/MQTT.js/issues/1269
@@ -165,21 +164,9 @@ inscrever();
 <template>
   <main class="main">
     <!-- <DashboardWarning /> -->
-    
-    <SectionTitle>
-      Informações
-    </SectionTitle>
     <DashboardInfo />
-    
-    <SectionTitle>
-      Detalhes
-    </SectionTitle>
-    <DashboardDetails />
-    
-    <SectionTitle>
-      Comandos
-    </SectionTitle>
-    <DashboardActions />
+    <!-- <DashboardDetails /> -->
+    <!-- <DashboardActions /> -->
   </main>
 </template>
 
@@ -189,20 +176,6 @@ inscrever();
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
-}
-
-.teste {
-  display: block;
-
-  label: {
-    display: block;
-  }
-
-  input {
-    display: block;
-    background-color: rgba(white, 0.15);
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-  }
+  margin-bottom: 2rem;
 }
 </style>

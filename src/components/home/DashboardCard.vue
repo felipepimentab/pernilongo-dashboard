@@ -63,7 +63,9 @@ const loading = false;
   display: grid;
   grid-template-columns: 100%;
   row-gap: 0.5rem;
-  background-color: white;
+  background-color: $white;
+  
+  @include shadow;
 
   &__head {
     display: flex;
@@ -83,8 +85,8 @@ const loading = false;
     }
     
     &__right {
-      color: $text-gray;
-      fill: $text-gray;
+      color: $gray-1;
+      fill: $gray-1;
       column-gap: 0.25rem;
       font-size: 0.875rem;
     }
@@ -112,7 +114,7 @@ const loading = false;
     }
 
     span {
-      color: $text-gray;
+      color: $gray-1;
     }
   }
 
@@ -122,23 +124,62 @@ const loading = false;
 }
 
 .blue {
-  color: $blue-warning;
-  fill: $blue-warning;
+  color: $blue;
+  fill: $blue;
 }
 
 .red {
-  color: $red-warning;
-  fill: $red-warning;
+  color: $red;
+  fill: $red;
 }
 
 .green {
-  color: $green-warning;
-  fill: $green-warning;
+  color: $green;
+  fill: $green;
 }
 
 .yellow {
-  color: $yellow-warning;
-  fill: $yellow-warning;
+  color: $yellow;
+  fill: $yellow;
 }
 
+
+.dark {
+ .card {
+  background-color: $gray-6--dark;
+
+  &__head {
+    &__right {
+      color: $gray-1--dark;
+      fill: $gray-1--dark;
+    }
+  }
+
+  &__content {
+    span {
+      color: $gray-1--dark;
+    }
+  }
+ }
+
+ .blue {
+    color: $blue--dark;
+    fill: $blue--dark;
+  }
+
+  .red {
+    color: $red--dark;
+    fill: $red--dark;
+  }
+
+  .green {
+    color: $green--dark;
+    fill: $green--dark;
+  }
+
+  .yellow {
+    color: $yellow--dark;
+    fill: $yellow--dark;
+  }
+}
 </style>

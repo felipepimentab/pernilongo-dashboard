@@ -57,7 +57,8 @@ import { RouterLink } from 'vue-router'
   background-color: rgba($white, 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-top: 1px solid #dcdcdc;
+  border-top: 1px solid $gray-5;
+  transition: all 0.3s ease-in-out;
 }
 
 .nav {
@@ -103,6 +104,17 @@ import { RouterLink } from 'vue-router'
     &--filled {
       display: block;
     }
+  }
+}
+
+.dark {
+  .footer {
+    background-color: rgba($black, 0.85);
+    border-color: $gray-5--dark;
+  }
+
+  .link__icon {
+    fill: $text-color--dark;
   }
 }
 </style>
