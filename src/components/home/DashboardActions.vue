@@ -3,12 +3,13 @@ import { useAedesStore } from '@/stores/aedes';
 import { ref } from 'vue';
 
 const aedes = useAedesStore();
-const { estado, velocidade } = aedes;
-const speed = ref(0);
+const { estado } = aedes;
+const speed = ref();
 
-function submit() {
-  console.log('velocidade:', speed)
-}
+const emit = defineEmits<{
+  (e: 'estado', state: boolean): void
+  (e: 'velocidade', speed: number): void
+}>()
 </script>
 
 <template>
@@ -21,13 +22,15 @@ function submit() {
       <div v-if="estado.messages" class="card__buttons">
         <button
           class="btn btn--on"
-          :disabled="(estado.messages[0].payload as boolean)"
+          :disabled="(estado.messages.length ? (estado.messages[0].payload as boolean) : false)"
+          @click="emit('estado', true)"
         >
           Ligar
         </button>
         <button
           class="btn btn--off"
-          :disabled="(!estado.messages[0].payload as boolean)"
+          :disabled="(estado.messages.length ? (!estado.messages[0].payload as boolean) : false)"
+          @click="emit('estado', false)"
         >
           Desligar
         </button>
@@ -35,9 +38,9 @@ function submit() {
     </article>
     <article class="card">
       <h3>Velocidade</h3>
-      <form class="card__buttons">
+      <form class="card__buttons" @submit.prevent="emit('velocidade', speed)">
         <input type="number" name="velocidade" id="velocidade" v-model="speed">
-        <button type="submit" class="btn btn--speed" @click.prevent="submit">Alterar</button>
+        <button type="submit" class="btn btn--speed">Alterar</button>
       </form>
     </article>
   </section>
@@ -118,6 +121,17 @@ function submit() {
 
     &:not(:disabled) {
       @include shadow;
+    }
+  }
+}
+
+.dark {
+  .card {
+    background-color: $gray-6--dark;
+
+    input {
+      background-color: $gray-4--dark;
+      color: $text-color--dark;
     }
   }
 }

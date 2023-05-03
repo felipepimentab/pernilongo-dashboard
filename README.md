@@ -11,7 +11,7 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [X] Layout inicial
 - [X] Conexão com o broker
 - [X] Recebimento dos dados
-- [ ] Envio de publicações
+- [X] Envio de publicações
 - [ ] Informações detalhadas e gráficos
 - [ ] Testes unitários
 - [ ] Testes e2e

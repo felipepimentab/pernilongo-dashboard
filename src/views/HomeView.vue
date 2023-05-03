@@ -1,19 +1,27 @@
 <script setup lang="ts">
+// Base
+import { reactive, ref } from "vue";
+
 // Components
 import DashboardInfo from '@/components/home/DashboardInfo.vue'
 import DashboardDetails from '@/components/home/DashboardDetails.vue'
 import DashboardActions from '@/components/home/DashboardActions.vue'
 import DashboardWarning from '@/components/home/DashboardWarning.vue';
+import HomeHeader from '@/components/home/HomeHeader.vue';
+
+// Types
+import type { Subscription } from '@/types/aedes';
 
 // vue 3 + vite use MQTT.js refer to https://github.com/mqttjs/MQTT.js/issues/1269
 import { topicsList } from '@/helpers/config';
 import * as mqtt from "mqtt/dist/mqtt.min";
-import { reactive, ref } from "vue";
-import type { Subscription } from '@/types/aedes';
+
+// Store
 import { useAedesStore } from '@/stores/aedes';
-import HomeHeader from '@/components/home/HomeHeader.vue';
+import type { QoS } from 'mqtt';
 const aedes = useAedesStore();
 
+// Connection settings
 const connection = reactive({
   protocol: "ws",
   host: "54.196.236.132",
@@ -30,12 +38,6 @@ const connection = reactive({
   password: "pernilongo12345",
 });
 
-const publish = ref({
-  topic: "mqtt/teste",
-  qos: 0 as mqtt.QoS,
-  payload: '{ "msg": "Hello, I am browser." }',
-});
-const receiveNews = ref("");
 let client = ref({
   connected: false,
 } as mqtt.MqttClient);
@@ -77,7 +79,6 @@ const createConnection = () => {
         console.log("connection error:", error);
       });
       client.value.on("message", (topic: string, message) => {
-        receiveNews.value = receiveNews.value.concat(message.toString());
         aedes.receiveMessage(topic, message);
         console.log(`received message: ${message} from topic: ${topic}`);
       });
@@ -121,14 +122,17 @@ function doUnSubscribe (subscription: Subscription) {
 
 // publish message
 // https://github.com/mqttjs/MQTT.js#mqttclientpublishtopic-message-options-callback
-const doPublish = () => {
-  const { topic, qos, payload } = publish.value;
+const doPublish = (message: string | boolean | number, topic: string, qos: QoS = 0) => {
+  const payload: string = JSON.stringify({
+    message: message,
+    time: new Date()
+  });
   client.value.publish(topic, payload, { qos }, (error) => {
     if (error) {
       console.log("publish error:", error);
       return;
     }
-    console.log(`published message: ${payload}`);
+    console.log(`published message: ${payload} on topic: ${topic}`);
   });
 };
 
@@ -158,6 +162,14 @@ function inscrever() {
   })
 }
 
+function handleStateChange(state: boolean) {
+  doPublish(state, '/motor/estado');
+}
+
+function handleSpeedChange(speed: number) {
+  doPublish(speed, '/motor/velocidade');
+}
+
 createConnection();
 inscrever();
 </script>
@@ -168,6 +180,9 @@ inscrever();
     <!-- <DashboardWarning /> -->
     <DashboardInfo />
     <!-- <DashboardDetails /> -->
-    <!-- <DashboardActions /> -->
+    <DashboardActions
+      @estado="handleStateChange"
+      @velocidade="handleSpeedChange"
+    />
   </main>
 </template>
