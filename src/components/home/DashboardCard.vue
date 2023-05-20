@@ -123,27 +123,6 @@ const loading = false;
   }
 }
 
-.blue {
-  color: $blue;
-  fill: $blue;
-}
-
-.red {
-  color: $red;
-  fill: $red;
-}
-
-.green {
-  color: $green;
-  fill: $green;
-}
-
-.yellow {
-  color: $yellow;
-  fill: $yellow;
-}
-
-
 .dark {
  .card {
   background-color: $gray-6--dark;
@@ -161,25 +140,5 @@ const loading = false;
     }
   }
  }
-
- .blue {
-    color: $blue--dark;
-    fill: $blue--dark;
-  }
-
-  .red {
-    color: $red--dark;
-    fill: $red--dark;
-  }
-
-  .green {
-    color: $green--dark;
-    fill: $green--dark;
-  }
-
-  .yellow {
-    color: $yellow--dark;
-    fill: $yellow--dark;
-  }
 }
 </style>

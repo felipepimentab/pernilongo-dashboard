@@ -48,13 +48,25 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 .actions {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
   row-gap: 0.5rem;
+  column-gap: 0.5rem;
+
 
   &__title {
     font-size: 1.25rem;
     font-weight: bold;
+
+    @include screen (desktop-only) {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+
+  @include screen(desktop-only) {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 

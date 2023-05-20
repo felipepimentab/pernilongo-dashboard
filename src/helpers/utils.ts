@@ -41,7 +41,7 @@ function topicInfo(topic: string): TopicInfo {
         name: 'Corrente',
         label: 'A',
         icon: 'Current',
-        color: 'red',
+        color: 'teal',
       };
     
     case '/motor/temperatura':
@@ -49,7 +49,7 @@ function topicInfo(topic: string): TopicInfo {
         name: 'Temperatura',
         label: '°C',
         icon: 'Temperature',
-        color: 'blue',
+        color: 'orange',
       };
     
     case '/motor/avisos':

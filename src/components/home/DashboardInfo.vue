@@ -55,8 +55,18 @@ const { estado, velocidade, tensao, corrente, temperatura } = aedes;
   column-gap: 0.5rem;
 
   &__title {
+    display: inline;
     font-size: 1.25rem;
     font-weight: bold;
+
+    @include screen (desktop-only) {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+
+  @include screen(desktop-only) {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 </style>

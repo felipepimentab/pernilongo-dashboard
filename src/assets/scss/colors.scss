@@ -60,3 +60,125 @@ $gray-3--dark: rgb(72, 72, 74);
 $gray-4--dark: rgb(58, 58, 60);
 $gray-5--dark: rgb(44, 44, 46);
 $gray-6--dark: rgb(28, 28, 30);
+
+.red {
+  color: $red;
+  fill: $red;
+}
+
+.orange {
+  color: $orange;
+  fill: $orange;
+}
+
+.yellow {
+  color: $yellow;
+  fill: $yellow;
+}
+
+.green {
+  color: $green;
+  fill: $green;
+}
+
+.mint {
+  color: $mint;
+  fill: $mint;
+}
+
+.teal {
+  color: $teal;
+  fill: $teal;
+}
+
+.cyan {
+  color: $cyan;
+  fill: $cyan;
+}
+
+.blue {
+  color: $blue;
+  fill: $blue;
+}
+
+.indigo {
+  color: $indigo;
+  fill: $indigo;
+}
+
+.purple {
+  color: $purple;
+  fill: $purple;
+}
+
+.pink {
+  color: $pink;
+  fill: $pink;
+}
+
+.brown {
+  color: $brown;
+  fill: $brown;
+}
+
+.dark {
+  .red {
+    color: $red--dark;
+    fill: $red--dark;
+  }
+  
+  .orange {
+    color: $orange--dark;
+    fill: $orange--dark;
+  }
+  
+  .yellow {
+    color: $yellow--dark;
+    fill: $yellow--dark;
+  }
+  
+  .green {
+    color: $green--dark;
+    fill: $green--dark;
+  }
+  
+  .mint {
+    color: $mint--dark;
+    fill: $mint--dark;
+  }
+  
+  .teal {
+    color: $teal--dark;
+    fill: $teal--dark;
+  }
+  
+  .cyan {
+    color: $cyan--dark;
+    fill: $cyan--dark;
+  }
+  
+  .blue {
+    color: $blue--dark;
+    fill: $blue--dark;
+  }
+  
+  .indigo {
+    color: $indigo--dark;
+    fill: $indigo--dark;
+  }
+  
+  .purple {
+    color: $purple--dark;
+    fill: $purple--dark;
+  }
+  
+  .pink {
+    color: $pink--dark;
+    fill: $pink--dark;
+  }
+  
+  .brown {
+    color: $brown--dark;
+    fill: $brown--dark;
+  }
+}

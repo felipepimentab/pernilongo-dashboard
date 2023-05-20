@@ -24,6 +24,7 @@ $max-width-desktop: 1200px;
 // -- Padding Size
 // Ex: padding: 0 $side-spacing;
 $side-spacing: max(1rem, calc(50vw - $max-width-mobile/2));
+$big-side-spacing: max(8%, calc(50vw - $max-width-desktop/2));
 $std-padding: 1rem;
 $std-vertical-pdd: 0.5rem;
 $std-horizontal-pdd: 1.5rem;

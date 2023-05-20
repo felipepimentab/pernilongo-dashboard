@@ -7,6 +7,11 @@
   row-gap: 1rem;
   top: 0;
   transition: all 0.3s ease-in-out;
+
+  @media only screen and (min-width: 1024px) {
+    padding: 2rem $big-side-spacing;
+    row-gap: 2rem;
+  }
 }
 
 .loading-gray {
