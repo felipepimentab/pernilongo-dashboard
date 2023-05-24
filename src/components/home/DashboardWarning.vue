@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { formatDate } from '@/helpers/utils';
 import { useAedesStore } from '@/stores/aedes';
-const warnings = useAedesStore().avisos;
+const warnings = useAedesStore().warning;
 
 function warningMsg(): string {
   return warnings.messages ? warnings.messages[0].payload.toString() : '';

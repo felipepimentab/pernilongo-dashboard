@@ -18,33 +18,33 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/avisos',
-      name: 'avisos',
+      path: '/warning',
+      name: 'warning',
       component: () => import('../views/topics/AvisosView.vue')
     },
     {
-      path: '/corrente',
-      name: 'corrente',
+      path: '/current',
+      name: 'current',
       component: () => import('../views/topics/CorrenteView.vue')
     },
     {
-      path: '/estado',
-      name: 'estado',
+      path: '/state',
+      name: 'state',
       component: () => import('../views/topics/EstadoView.vue')
     },
     {
-      path: '/temperatura',
-      name: 'temperatura',
+      path: '/temperature',
+      name: 'temperature',
       component: () => import('../views/topics/TemperaturaView.vue')
     },
     {
-      path: '/tensao',
-      name: 'tensao',
+      path: '/tension',
+      name: 'tension',
       component: () => import('../views/topics/TensaoView.vue')
     },
     {
-      path: '/velocidade',
-      name: 'velocidade',
+      path: '/speed',
+      name: 'speed',
       component: () => import('../views/topics/VelocidadeView.vue')
     },
   ]

@@ -4,7 +4,7 @@ import DashboardCard from './DashboardCard.vue';
 
 // Aedes store
 const aedes = useAedesStore();
-const { estado, velocidade, tensao, corrente, temperatura } = aedes;
+const { state, speed, tension, current, temperature } = aedes;
 </script>
 
 <template>
@@ -13,33 +13,33 @@ const { estado, velocidade, tensao, corrente, temperatura } = aedes;
       Resumo
     </h2>
   
-    <router-link :to="{ name: 'estado' }">
+    <router-link :to="{ name: 'state' }">
       <DashboardCard
-        :subscription="(estado)"
+        :subscription="(state)"
       />
     </router-link>
 
-    <router-link :to="{ name: 'velocidade' }">
+    <router-link :to="{ name: 'speed' }">
       <DashboardCard
-        :subscription="(velocidade)"
+        :subscription="(speed)"
       />
     </router-link>
 
-    <router-link :to="{ name: 'tensao' }">
+    <router-link :to="{ name: 'tension' }">
       <DashboardCard
-        :subscription="(tensao)"
+        :subscription="(tension)"
       />
     </router-link>
 
-    <router-link :to="{ name: 'corrente' }">
+    <router-link :to="{ name: 'current' }">
       <DashboardCard
-        :subscription="(corrente)"
+        :subscription="(current)"
       />
     </router-link>
 
-    <router-link :to="{ name: 'temperatura' }">
+    <router-link :to="{ name: 'temperature' }">
       <DashboardCard
-        :subscription="(temperatura)"
+        :subscription="(temperature)"
       />
     </router-link>
   </section>

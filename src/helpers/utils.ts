@@ -12,7 +12,7 @@ function formatDate(date: Date): string {
 
 function topicInfo(topic: string): TopicInfo {
   switch (topic) {
-    case '/motor/estado':
+    case '/motor/state':
       return {
         name: 'Estado',
         label: '',
@@ -20,7 +20,7 @@ function topicInfo(topic: string): TopicInfo {
         color: 'green',
       };
     
-    case '/motor/velocidade':
+    case '/motor/speed':
       return {
         name: 'Velocidade',
         label: 'rpm',
@@ -28,7 +28,7 @@ function topicInfo(topic: string): TopicInfo {
         color: 'red',
       };
     
-    case '/motor/tensao':
+    case '/motor/tension':
       return {
         name: 'Tensão',
         label: 'V',
@@ -36,7 +36,7 @@ function topicInfo(topic: string): TopicInfo {
         color: 'blue',
       };
     
-    case '/motor/corrente':
+    case '/motor/current':
       return {
         name: 'Corrente',
         label: 'A',
@@ -44,7 +44,7 @@ function topicInfo(topic: string): TopicInfo {
         color: 'teal',
       };
     
-    case '/motor/temperatura':
+    case '/motor/temperature':
       return {
         name: 'Temperatura',
         label: '°C',
@@ -52,7 +52,7 @@ function topicInfo(topic: string): TopicInfo {
         color: 'orange',
       };
     
-    case '/motor/avisos':
+    case '/motor/warning':
       return {
         name: 'Avisos',
         label: '',

@@ -163,11 +163,11 @@ function inscrever() {
 }
 
 function handleStateChange(state: boolean) {
-  doPublish(state, '/motor/estado');
+  doPublish(state, '/motor/state');
 }
 
 function handleSpeedChange(speed: number) {
-  doPublish(speed, '/motor/velocidade');
+  doPublish(speed, '/motor/speed');
 }
 
 createConnection();
@@ -181,8 +181,8 @@ inscrever();
     <DashboardInfo />
     <!-- <DashboardDetails /> -->
     <DashboardActions
-      @estado="handleStateChange"
-      @velocidade="handleSpeedChange"
+      @state="handleStateChange"
+      @speed="handleSpeedChange"
     />
   </main>
 </template>

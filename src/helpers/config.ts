@@ -20,27 +20,27 @@ const config = {
 
 const topicsList: ListOfSubscriptions = [
   {
-    topic: '/motor/estado',
+    topic: '/motor/state',
     qos: 0,
   },
   {
-    topic: '/motor/velocidade',
+    topic: '/motor/speed',
     qos: 0,
   },
   {
-    topic: '/motor/tensao',
+    topic: '/motor/tension',
     qos: 0,
   },
   {
-    topic: '/motor/corrente',
+    topic: '/motor/current',
     qos: 0,
   },
   {
-    topic: '/motor/avisos',
+    topic: '/motor/warning',
     qos: 0,
   },
   {
-    topic: '/motor/temperatura',
+    topic: '/motor/temperature',
     qos: 0,
   }
 ];

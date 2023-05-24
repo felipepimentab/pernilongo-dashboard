@@ -3,12 +3,12 @@ import { useAedesStore } from '@/stores/aedes';
 import { ref } from 'vue';
 
 const aedes = useAedesStore();
-const { estado } = aedes;
+const { state } = aedes;
 const speed = ref();
 
 const emit = defineEmits<{
-  (e: 'estado', state: boolean): void
-  (e: 'velocidade', speed: number): void
+  (e: 'state', state: boolean): void
+  (e: 'speed', speed: number): void
 }>()
 </script>
 
@@ -19,18 +19,18 @@ const emit = defineEmits<{
     </h2>
     <article class="card">
       <h3>Motor</h3>
-      <div v-if="estado.messages" class="card__buttons">
+      <div v-if="state.messages" class="card__buttons">
         <button
           class="btn btn--on"
-          :disabled="(estado.messages.length ? (estado.messages[0].payload as boolean) : false)"
-          @click="emit('estado', true)"
+          :disabled="(state.messages.length ? (state.messages[0].payload as boolean) : false)"
+          @click="emit('state', true)"
         >
           Ligar
         </button>
         <button
           class="btn btn--off"
-          :disabled="(estado.messages.length ? (!estado.messages[0].payload as boolean) : false)"
-          @click="emit('estado', false)"
+          :disabled="(state.messages.length ? (!state.messages[0].payload as boolean) : false)"
+          @click="emit('state', false)"
         >
           Desligar
         </button>
@@ -38,8 +38,8 @@ const emit = defineEmits<{
     </article>
     <article class="card">
       <h3>Velocidade</h3>
-      <form class="card__buttons" @submit.prevent="emit('velocidade', speed)">
-        <input type="number" name="velocidade" id="velocidade" v-model="speed">
+      <form class="card__buttons" @submit.prevent="emit('speed', speed)">
+        <input type="number" name="speed" id="speed" v-model="speed">
         <button type="submit" class="btn btn--speed">Alterar</button>
       </form>
     </article>

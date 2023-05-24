@@ -4,38 +4,38 @@ import type { Subscription, Message } from '@/types/aedes';
 
 export const useAedesStore = defineStore('aedes', () => {  
   /* Exported states */
-  const estado = ref<Subscription>({
-    topic: '/motor/estado',
+  const state = ref<Subscription>({
+    topic: '/motor/state',
     qos: 0,
     messages: [],
   });
   
-  const velocidade = ref<Subscription>({
-    topic: '/motor/velocidade',
+  const speed = ref<Subscription>({
+    topic: '/motor/speed',
     qos: 0,
     messages: [],
   });
 
-  const tensao = ref<Subscription>({
-    topic: '/motor/tensao',
+  const tension = ref<Subscription>({
+    topic: '/motor/tension',
     qos: 0,
     messages: [],
   });
 
-  const corrente = ref<Subscription>({
-    topic: '/motor/corrente',
+  const current = ref<Subscription>({
+    topic: '/motor/current',
     qos: 0,
     messages: [],
   });
 
-  const avisos = ref<Subscription>({
-    topic: '/motor/avisos',
+  const warning = ref<Subscription>({
+    topic: '/motor/warning',
     qos: 0,
     messages: [],
   });
 
-  const temperatura = ref<Subscription>({
-    topic: '/motor/temperatura',
+  const temperature = ref<Subscription>({
+    topic: '/motor/temperature',
     qos: 0,
     messages: [],
   });
@@ -45,44 +45,44 @@ export const useAedesStore = defineStore('aedes', () => {
     const message = JSON.parse(msg.toString()).message;
   
     switch (topic) {
-      case '/motor/estado':
-        estado.value.messages?.splice(0, 0, {
+      case '/motor/state':
+        state.value.messages?.splice(0, 0, {
           payload: !!message as boolean,
           date: date as Date,
         });
-        console.log('estado:', estado.value);
+        console.log('state:', state.value);
         break;
     
-      case '/motor/velocidade':
-        velocidade.value.messages?.splice(0, 0, {
+      case '/motor/speed':
+        speed.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
         break;
     
-      case '/motor/tensao':
-        tensao.value.messages?.splice(0, 0, {
+      case '/motor/tension':
+        tension.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
         break;
     
-      case '/motor/corrente':
-        corrente.value.messages?.splice(0, 0, {
+      case '/motor/current':
+        current.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
         break;
     
-      case '/motor/temperatura':
-        temperatura.value.messages?.splice(0, 0, {
+      case '/motor/temperature':
+        temperature.value.messages?.splice(0, 0, {
           payload: parseInt(message.toString()) as number,
           date: date as Date,
         });
         break;
     
-      case '/motor/avisos':
-        avisos.value.messages?.splice(0, 0, {
+      case '/motor/warning':
+        warning.value.messages?.splice(0, 0, {
           payload: message.toString() as string,
           date: date as Date,
         });
@@ -95,12 +95,12 @@ export const useAedesStore = defineStore('aedes', () => {
   }
   
   return {
-    estado,
-    velocidade,
-    tensao,
-    corrente,
-    avisos,
-    temperatura,
+    state,
+    speed,
+    tension,
+    current,
+    warning,
+    temperature,
     receiveMessage,
   }
 })

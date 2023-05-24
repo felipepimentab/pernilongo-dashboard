@@ -44,14 +44,14 @@ O projeto **IoT Dashboard** é um cliente que se conecta com um *broker* mqtt ho
 <img src="esboco.jpg" alt="Esboço">
 
 ### Estrutura de tópicos do broker
-```
+```F
 /motor
-├── /estado
-├── /velocidade
-├── /tensao
-├── /corrente
-├── /temperatura
-└── /avisos
+├── /state
+├── /speed
+├── /tension
+├── /current
+├── /temperature
+└── /warning
 ```
  
 #### Unidirecionais ⟹
@@ -61,7 +61,7 @@ O projeto **IoT Dashboard** é um cliente que se conecta com um *broker* mqtt ho
 #### Exclusivos ⟾
 
 #### Estado
-O tópico `/estado` se refere ao estado do motor, i.e., ligado ou desligado. Possui dois subtópicos: `/atual` e `/meta`.
+O tópico `/state` se refere ao estado do motor, i.e., ligado ou desligado. Possui dois subtópicos: `/atual` e `/meta`.
 
 ## 🤝 Colaboradores
 
