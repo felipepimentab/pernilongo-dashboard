@@ -8,7 +8,7 @@ const toggleDark = useToggle(isDark)
 
 <template>
   <header class="header">
-    <h1 class="header__title">IoT Dashboard</h1>
+    <h1 class="header__title">Pernilongo Dashboard</h1>
     <SvgComponent
       icon="Mosquito"
       class="header__icon"
