@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { toRefs } from 'vue';
-import { topicInfo, formatDate } from '@/helpers/utils';
-import type { Subscription } from '@/types/aedes';
+import { formatDate } from '@/helpers/utils';
+import { topicInfo } from '@/projects/motor/index'
+import type { Subscription } from '@/types/common';
 
 const props = defineProps<{
   subscription: Subscription,

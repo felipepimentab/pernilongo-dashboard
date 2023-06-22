@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Subscription, Message } from '@/types/aedes';
+import type { Subscription, Message } from '@/types/common';
 
 export const useAedesStore = defineStore('aedes', () => {  
   /* Exported states */

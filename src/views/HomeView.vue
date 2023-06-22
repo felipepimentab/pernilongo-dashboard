@@ -10,10 +10,10 @@ import DashboardWarning from '@/components/home/DashboardWarning.vue';
 import HomeHeader from '@/components/home/HomeHeader.vue';
 
 // Types
-import type { Subscription } from '@/types/aedes';
+import type { Subscription } from '@/types/common';
 
 // vue 3 + vite use MQTT.js refer to https://github.com/mqttjs/MQTT.js/issues/1269
-import { topicsList } from '@/helpers/config';
+import { topicsList } from '@/projects/motor/index';
 import * as mqtt from "mqtt/dist/mqtt.min";
 
 // Store
