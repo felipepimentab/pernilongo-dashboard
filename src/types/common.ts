@@ -12,6 +12,8 @@ interface Subscription {
   current?: string | boolean | number,
 };
 
+type Topic = 'state' | 'speed' | 'tension' | 'current' | 'temperature' | 'warning'
+
 type ListOfSubscriptions = Array<Subscription>;
 
 interface Publish {
@@ -27,4 +29,10 @@ type TopicInfo = {
   color: string,
 }
 
-export type { Message, Subscription, ListOfSubscriptions, Publish, TopicInfo }
+interface ApiResponse<T> {
+  data: {
+    data: T,
+  }
+}
+
+export type { Message, Subscription, Topic, ListOfSubscriptions, Publish, TopicInfo, ApiResponse }
