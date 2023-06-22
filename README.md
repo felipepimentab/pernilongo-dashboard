@@ -1,6 +1,6 @@
-# IoT Dashboard
+# Pernilongo Dashboard
 <!-- Veja https://shields.io -->
-> Este projeto se trata de um dashboard interativo para aplicações IoT utilizado no trabalho de conclusão de curso (TCC) do aluno Felipe Pimenta Bernardo, em conjunto com o aluno Flávio Alegretti Ramos, orientados pelo professor Dr. José Roberto Boffino de Almeida Monteiro.
+> Este projeto se trata de um dashboard interativo para aplicações Pernilongo utilizado no trabalho de conclusão de curso (TCC) do aluno Felipe Pimenta Bernardo, em conjunto com o aluno Flávio Alegretti Ramos, orientados pelo professor Dr. José Roberto Boffino de Almeida Monteiro.
 
 <img src="readme-preview.png" alt="Prévia do projeto">
 
@@ -39,7 +39,7 @@ Este projeto foi criado utilizando o framework **Vue 3**, com **TypeScript** par
 
 ## ☕ Arquitetura geral
 
-O projeto **IoT Dashboard** é um cliente que se conecta com um *broker* mqtt hospedado em núvem (AWS). De acordo com os padrões do mqtt, a transferência de informações é feita através de **tópicos** nos quais os clientes podem se **inscrever** e **publicar**.
+O projeto **Pernilongo Dashboard** é um cliente que se conecta com um *broker* mqtt hospedado em núvem (AWS). De acordo com os padrões do mqtt, a transferência de informações é feita através de **tópicos** nos quais os clientes podem se **inscrever** e **publicar**.
 
 <img src="esboco.jpg" alt="Esboço">
 

@@ -4,12 +4,7 @@ import { RouterView } from 'vue-router'
 
 <template>
   <RouterView v-slot="{ Component }">
-    <!-- <Transition
-      :enter-active-class="route.name === 'home' ? 'animate__animated animate__fadeInLeft' : 'animate__animated animate__fadeInRight'"
-      :leave-active-class="route.name === 'home' ? 'animate__animated animate__fadeOutRight' : 'animate__animated animate__fadeOutLeft'"
-    > -->
-      <component :is="Component" />
-    <!-- </Transition> -->
+    <component :is="Component" />
   </RouterView>
 </template>
 
