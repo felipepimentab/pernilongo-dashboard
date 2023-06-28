@@ -4,7 +4,6 @@ import { reactive, ref } from "vue";
 
 // Components
 import DashboardInfo from '@/components/home/DashboardInfo.vue'
-import DashboardDetails from '@/components/home/DashboardDetails.vue'
 import DashboardActions from '@/components/home/DashboardActions.vue'
 import DashboardWarning from '@/components/home/DashboardWarning.vue';
 import HomeHeader from '@/components/home/HomeHeader.vue';
@@ -179,7 +178,6 @@ inscrever();
     <HomeHeader />
     <!-- <DashboardWarning /> -->
     <DashboardInfo />
-    <!-- <DashboardDetails /> -->
     <DashboardActions
       @state="handleStateChange"
       @speed="handleSpeedChange"
