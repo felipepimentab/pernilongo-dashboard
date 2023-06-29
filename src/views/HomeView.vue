@@ -2,13 +2,15 @@
 // Components
 import HomeHeader from '@/components/home/HomeHeader.vue';
 import { useTopicsStore } from '@/stores/topics';
+import { useBrokerStore } from '@/stores/broker';
 import { toRefs } from 'vue';
 
 // const { state, speed, tension, current, warning, temperature } = toRefs(useAedesStore());
 const { state, items, accepted, rejected, warning } = toRefs(useTopicsStore());
+const { doPublish } = useBrokerStore();
 
 function changeState() {
-  console.log('❎ ~ Botão clicado.')
+  doPublish(!state.value.message, '/belt/state')
 }
 </script>
 
