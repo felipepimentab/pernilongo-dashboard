@@ -26,10 +26,12 @@ interface Subscription {
   retain?: Boolean,
 }
 
+type ConnectionStatus = 'connecting' | 'success' | 'error';
+
 interface ApiResponse<T> {
   data: {
     data: T,
   }
 }
 
-export type { Payload, Topic, TopicPath, Publication, Subscription, ApiResponse }
+export type { Payload, Topic, TopicPath, Publication, Subscription, ApiResponse, ConnectionStatus }

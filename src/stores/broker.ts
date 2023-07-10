@@ -1,6 +1,6 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { reactive, ref } from "vue";
-import type { Subscription, TopicPath } from '@/types/common';
+import type { Subscription, TopicPath, ConnectionStatus } from '@/types/common';
 import { topicsList } from '@/helpers/config';
 import * as mqtt from "mqtt/dist/mqtt.min";
 import type { QoS } from 'mqtt';
@@ -25,6 +25,8 @@ export const useBrokerStore = defineStore('broker', () => {
     username: "pernilongo-broker",
     password: "pernilongo12345",
   });
+
+  const connectionStatus = ref<ConnectionStatus>('connecting');
 
   const client = ref({
     connected: false,
@@ -54,6 +56,7 @@ export const useBrokerStore = defineStore('broker', () => {
   };
   
   async function createConnection() {
+    connectionStatus.value = 'connecting';
     try {
       const { protocol, host, port, endpoint, ...options } = connection;
       const connectUrl = `${protocol}://${host}:${port}${endpoint}`;
@@ -61,10 +64,12 @@ export const useBrokerStore = defineStore('broker', () => {
       if (client.value.on) {
         client.value.on("connect", () => {
           console.log("✅ ~ Connection successful");
+          connectionStatus.value = 'success';
         });
         client.value.on("reconnect", handleOnReConnect);
         client.value.on("error", (error) => {
           console.log("❌ ~ Connection error:", error);
+          connectionStatus.value = 'error';
         });
         client.value.on("message", (topic: string, message) => {
           receiveMessage(topic, message);
@@ -117,7 +122,7 @@ export const useBrokerStore = defineStore('broker', () => {
     })
   }
 
-  return { connection, createConnection, subscribeToAllTopics, doPublish }
+  return { connection, createConnection, subscribeToAllTopics, doPublish, connectionStatus }
 })
 
 if (import.meta.hot) {
