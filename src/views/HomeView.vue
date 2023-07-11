@@ -3,55 +3,87 @@ import HomeHeader from '@/components/home/HomeHeader.vue';
 import { useTopicsStore } from '@/stores/topics';
 import { useBrokerStore } from '@/stores/broker';
 import { useHistoryStore } from '@/stores/history';
+import { useLoadingStore } from '@/stores/loading';
 import { toRefs, onMounted } from 'vue';
 import Chart from 'chart.js/auto'
 import IconChevronRight from '@/components/base/svg/icons/IconChevronRight.vue';
 import IconEngine from '@/components/base/svg/icons/IconEngine.vue';
 import IconBox from '@/components/base/svg/icons/IconBox.vue';
-import { formatRelativeDate } from '@/helpers/utils';
+import { formatRelativeDate, createPlotableArray, createDataArray, getShiftedWeekdays } from '@/helpers/utils';
 import { formatDate } from '@/helpers/utils';
+import BarLoading from '@/components/base/BarLoading.vue';
 
-// const { state, speed, tension, current, warning, temperature } = toRefs(useAedesStore());
 const { state, items, accepted, rejected, warning } = toRefs(useTopicsStore());
-// const { stateHistory, itemsHistory, rejectedHistory, acceptedHistory, warningHistory } = toRefs(useHistoryStore());
+const { stateHistory, itemsHistory, rejectedHistory, acceptedHistory, warningHistory } = toRefs(useHistoryStore());
+const { getTopicHistory } = useHistoryStore();
 const { doPublish } = useBrokerStore();
+const { loading } = toRefs(useLoadingStore());
 
 function changeState() {
   doPublish(!state.value.message, '/belt/state')
 }
 
-onMounted(() => {
-  const ctx = document.getElementById('chart') as HTMLElement;
+
+onMounted(async () => {
+  try {
+    await getTopicHistory('state');
+    await getTopicHistory('items');
+    await getTopicHistory('rejected');
+    await getTopicHistory('accepted');
+
+  } catch (error) {
+    console.error(error);
+  } finally {
+    const acceptedBoxes = createPlotableArray(acceptedHistory.value);
+    const semana = getShiftedWeekdays(acceptedBoxes[0].time)
   
-  new Chart(ctx as any, {
-    type: 'bar',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+    const ctx = document.getElementById('chart') as HTMLElement;
+    new Chart(ctx as any, {
+      type: 'bar',
+      data: {
+        labels: semana,
+        datasets: [{
+          label: 'Caixas aceitas',
+          data: createDataArray(acceptedBoxes),
+          borderWidth: 2,
+          borderRadius: 5,
+          backgroundColor: 'rgba(0, 122, 255, 0.5)',
+          borderColor: 'rgb(0, 122, 255)'
+        },
+        {
+          label: 'Caixas rejeitadas',
+          data: createDataArray(acceptedBoxes),
+          borderWidth: 2,
+          borderRadius: 5,
+          backgroundColor: 'rgba(255, 59, 48, 0.5)',
+          borderColor: 'rgb(255, 59, 48)'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            stacked: true,
+          },
+          x: {
+            stacked: true,
+          }
         }
       }
-    }
-  });
+    });
+  }
 })
 </script>
 
 <template>
   <main class="main">
     <HomeHeader />
+    <div class="content">
     <article class="card">
       <div class="card__head">
         <h2>
           <IconEngine />
-          Esteira
+          Estado atual da esteira
         </h2>
         <span>
           {{ formatRelativeDate(state.time) }}
@@ -71,48 +103,82 @@ onMounted(() => {
       >
         {{ state.message ? 'Desligar' : 'Ligar' }}
       </button>
-    </article>
+      </article>
 
-    <article class="card">
+      <article class="card">
+        <div class="card__head">
+          <h2>
+            <IconBox />
+            Fluxo de caixas no dia
+          </h2>
+          <span>
+            {{ formatRelativeDate(items.time) }}
+            <IconChevronRight title="Seta" />
+          </span>
+        </div>
+        <div class="card__items">
+          <div class="card__items__item">
+            <p class="card__items__item--accepted">Aceitas</p>
+            <p>
+              <span class="card__items__item--value">{{ accepted.message }}</span>
+              <span class="card__items__item--label"> caixas</span>
+            </p>
+          </div>
+          <div class="card__items__item">
+            <p class="card__items__item--rejected">Rejeitadas</p>
+            <p>
+              <span class="card__items__item--value">{{ rejected.message }}</span>
+              <span class="card__items__item--label"> caixas</span>
+            </p>
+          </div>
+          <div class="card__items__item">
+            <p class="card__items__item--total">Total</p>
+            <p>
+              <!-- <span class="card__items__item--value">{{ items.message }}</span> -->
+              <span class="card__items__item--value">{{ (accepted.message as number) + (rejected.message as number) }}</span>
+              <span class="card__items__item--label"> caixas</span>
+            </p>
+          </div>
+        </div>
+      </article>      
+    </div>
+    
+    <div class="card chart">
       <div class="card__head">
         <h2>
           <IconBox />
-          Caixas
+          Resumo do fluxo de caixas
         </h2>
         <span>
-          {{ formatRelativeDate(items.time) }}
+          Nos últimos 7 dias
           <IconChevronRight title="Seta" />
         </span>
       </div>
-      <div class="card__items">
-        <div class="card__items__item">
-          <p>Aceitas</p>
-          <p>{{ accepted.message }}</p>
-        </div>
-        <div class="card__items__item">
-          <p>Rejeitadas</p>
-          <p>{{ rejected.message }}</p>
-        </div>
-        <div class="card__items__item">
-          <p>Total</p>
-          <p>{{ items.message }}</p>
-        </div>
-      </div>
-    </article>
+      <BarLoading v-if="loading"/>
+      <canvas v-else id="chart"></canvas>
+    </div>
 
     <div>
       <h4>WARNING</h4>
       <p>Message: {{ warning.message }}</p>
       <p>At: {{ warning.time }}</p>
     </div>
-
-    <div class="card chart">
-      <canvas id="chart"></canvas>
-    </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
+.content {
+  display: grid;
+  grid-template-columns: auto;
+  row-gap: 1rem;
+
+  @include screen(desktop-only) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+}
+
 .card {
   background-color: white;
   border-radius: 0.5rem;
@@ -131,12 +197,10 @@ onMounted(() => {
       display: flex;
       align-items: center;
       column-gap: 0.5rem;
-      color: $blue;
       font-size: 1.25rem;
       font-weight: bold;
 
       svg {
-        fill: $blue;
         height: 1rem;
         width: auto;
       }
@@ -157,6 +221,8 @@ onMounted(() => {
   }
 
   &__state {
+    color: $gray-1;
+
     .on {
       font-size: 1.5rem;
       font-weight: bold;
@@ -180,7 +246,31 @@ onMounted(() => {
       flex-direction: column;
       align-items: flex-start;
       padding: 0 0.5rem;
-      border-right: 2px solid $gray-1;
+      border-right: 1px solid $gray-2;
+
+      &--label {
+        color: $gray-1;
+      }
+
+      &--accepted {
+        color: $blue;
+        font-weight: bold;
+      }
+
+      &--rejected {
+        color: $red;
+        font-weight: bold;
+      }
+
+      &--total {
+        color: $green;
+        font-weight: bold;
+      }
+
+      &--value {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
     }
   }
 
@@ -189,7 +279,7 @@ onMounted(() => {
     border-radius: 0.5rem;
     color: $white;
     font-weight: bold;
-    background-color: $teal;
+    background-color: $blue;
 
     &:not(:disabled) {
       @include shadow;
@@ -207,5 +297,11 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+}
+
+.dark {
+  .card {
+    background-color: $gray-6--dark;
+  }
 }
 </style>

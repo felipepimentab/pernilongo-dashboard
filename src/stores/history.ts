@@ -3,9 +3,9 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import { getSingleTopic } from '@/api';
 import { useLoadingStore } from './loading';
 import type { Topic } from '@/types/common';
-const loading = useLoadingStore();
 
 export const useHistoryStore = defineStore('history', () => {
+  const loading = useLoadingStore();
   const currentHistory = ref();
   const stateHistory = ref();
   const speedHistory = ref();
@@ -66,6 +66,9 @@ export const useHistoryStore = defineStore('history', () => {
     tensionHistory,
     temperatureHistory,
     warningHistory,
+    acceptedHistory,
+    rejectedHistory,
+    itemsHistory,
     getTopicHistory
   }
 })
