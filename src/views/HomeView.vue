@@ -13,21 +13,19 @@ import { formatRelativeDate, createPlotableArray, createDataArray, getShiftedWee
 import { formatDate } from '@/helpers/utils';
 import BarLoading from '@/components/base/BarLoading.vue';
 
-const { state, items, accepted, rejected, warning } = toRefs(useTopicsStore());
+const { state, accepted, rejected } = toRefs(useTopicsStore());
 const { rejectedHistory, acceptedHistory } = toRefs(useHistoryStore());
 const { getTopicHistory } = useHistoryStore();
 const { doPublish } = useBrokerStore();
 const { loading } = toRefs(useLoadingStore());
 
 function changeState() {
-  doPublish(!state.value.message, '/belt/state')
+  doPublish(!state.value.message, '/belt/items')
 }
 
 
 onMounted(async () => {
   try {
-    // await getTopicHistory('state');
-    // await getTopicHistory('items');
     await getTopicHistory('rejected');
     await getTopicHistory('accepted');
 
@@ -112,7 +110,7 @@ onMounted(async () => {
             Fluxo de caixas no dia
           </h2>
           <span>
-            {{ formatRelativeDate(items.time) }}
+            {{ formatRelativeDate(accepted.time) }}
             <IconChevronRight title="Seta" />
           </span>
         </div>
