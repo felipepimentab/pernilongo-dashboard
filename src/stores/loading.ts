@@ -1,17 +1,17 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { computed, ref, type ComputedRef } from 'vue'
 
 export const useLoadingStore = defineStore('loading', () => {
-  const count = ref<number>(0);
-  const status = computed<boolean>(() => count.value > 0)
+  const loadingCount = ref<number>(0);
+  const loading: ComputedRef<boolean> = computed(() => loadingCount.value > 0)
 
-  function start() {
-    count.value++;
+  function increase(): void {
+    loadingCount.value++
   }
 
-  function finish() {
-    count.value--;
+  function decrease(): void {
+    loadingCount.value--
   }
 
-  return { status, start, finish }
+  return { loading, increase, decrease }
 })

@@ -16,37 +16,7 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
-    },
-    {
-      path: '/warning',
-      name: 'warning',
-      component: () => import('../views/topics/AvisosView.vue')
-    },
-    {
-      path: '/current',
-      name: 'current',
-      component: () => import('../views/topics/CorrenteView.vue')
-    },
-    {
-      path: '/state',
-      name: 'state',
-      component: () => import('../views/topics/EstadoView.vue')
-    },
-    {
-      path: '/temperature',
-      name: 'temperature',
-      component: () => import('../views/topics/TemperaturaView.vue')
-    },
-    {
-      path: '/tension',
-      name: 'tension',
-      component: () => import('../views/topics/TensaoView.vue')
-    },
-    {
-      path: '/speed',
-      name: 'speed',
-      component: () => import('../views/topics/VelocidadeView.vue')
-    },
+    }
   ]
 })
 

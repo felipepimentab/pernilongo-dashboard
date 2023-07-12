@@ -1,33 +1,32 @@
 import type * as mqtt from 'mqtt/dist/mqtt.min';
 
-type Message = {
-  payload: string | boolean | number,
-  date: Date,
+type Payload = {
+  message: string | boolean | number,
+  time: Date,
 }
 
-interface Subscription {
-  topic: string,
+// type Topic = 'state' | 'speed' | 'tension' | 'current' | 'temperature' | 'warning'
+type Topic = 'state' | 'accepted' | 'rejected' | 'items' | 'warning'
+
+// type TopicPath = `/motor/${Topic}`
+type TopicPath = `/belt/${Topic}`
+
+interface Publication {
+  topic: Topic,
+  payload: Payload
   qos: mqtt.QoS,
-  messages?: Message[],
-  current?: string | boolean | number,
+  retain: Boolean,
+  "_id"?: String,
+  "__v"?: String
 };
 
-type Topic = 'state' | 'speed' | 'tension' | 'current' | 'temperature' | 'warning'
-
-type ListOfSubscriptions = Array<Subscription>;
-
-interface Publish {
-  topic: string,
+interface Subscription {
+  topic: TopicPath,
   qos: mqtt.QoS,
-  payload: string | object | number | Buffer,
+  retain?: Boolean,
 }
 
-type TopicInfo = {
-  name: string,
-  label: string,
-  icon: string,
-  color: string,
-}
+type ConnectionStatus = 'connecting' | 'success' | 'error';
 
 interface ApiResponse<T> {
   data: {
@@ -35,4 +34,4 @@ interface ApiResponse<T> {
   }
 }
 
-export type { Message, Subscription, Topic, ListOfSubscriptions, Publish, TopicInfo, ApiResponse }
+export type { Payload, Topic, TopicPath, Publication, Subscription, ApiResponse, ConnectionStatus }
