@@ -33,6 +33,7 @@ onMounted(async () => {
     console.error(error);
   } finally {
     const acceptedBoxes = createPlotableArray(acceptedHistory.value);
+    const rejectedBoxes = createPlotableArray(rejectedHistory.value);
     const semana = getShiftedWeekdays(acceptedBoxes[0].time)
   
     const ctx = document.getElementById('chart') as HTMLElement;
@@ -50,7 +51,7 @@ onMounted(async () => {
         },
         {
           label: 'Caixas rejeitadas',
-          data: createDataArray(acceptedBoxes),
+          data: createDataArray(rejectedBoxes),
           borderWidth: 2,
           borderRadius: 5,
           backgroundColor: 'rgba(255, 59, 48, 0.5)',
@@ -119,14 +120,14 @@ onMounted(async () => {
             <p class="card__items__item--accepted">Aceitas</p>
             <p>
               <span class="card__items__item--value">{{ accepted.message }}</span>
-              <span class="card__items__item--label"> caixas</span>
+              <span class="card__items__item--label">{{ accepted.message === 1 ? ' caixa' : ' caixas'}}</span>
             </p>
           </div>
           <div class="card__items__item">
             <p class="card__items__item--rejected">Rejeitadas</p>
             <p>
               <span class="card__items__item--value">{{ rejected.message }}</span>
-              <span class="card__items__item--label"> caixas</span>
+              <span class="card__items__item--label">{{ rejected.message === 1 ? ' caixa' : ' caixas'}}</span>
             </p>
           </div>
           <div class="card__items__item">
@@ -134,7 +135,7 @@ onMounted(async () => {
             <p>
               <!-- <span class="card__items__item--value">{{ items.message }}</span> -->
               <span class="card__items__item--value">{{ ((accepted.message as number) + (rejected.message as number)) || 0 }}</span>
-              <span class="card__items__item--label"> caixas</span>
+              <span class="card__items__item--label">{{ ((accepted.message as number) + (rejected.message as number)) === 1 ? ' caixa' : ' caixas'}}</span>
             </p>
           </div>
         </div>
@@ -145,7 +146,7 @@ onMounted(async () => {
       <div class="card__head">
         <h2>
           <IconBox />
-          Resumo do fluxo de caixas
+          Histórico do fluxo de caixas
         </h2>
         <span>
           Nos últimos 7 dias
@@ -190,6 +191,7 @@ onMounted(async () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: fit-content;
 
     h2 {
       display: flex;
@@ -243,7 +245,8 @@ onMounted(async () => {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding: 0 0.5rem;
+      padding: 0.25rem 0.75rem;
+      height: fit-content;
 
       &:not(:last-child) {
         border-right: 1px solid $gray-2;
@@ -254,22 +257,25 @@ onMounted(async () => {
       }
 
       &--accepted {
+        font-size: 1.25rem;
         color: $blue;
         font-weight: bold;
       }
 
       &--rejected {
+        font-size: 1.25rem;
         color: $red;
         font-weight: bold;
       }
 
       &--total {
+        font-size: 1.25rem;
         color: $green;
         font-weight: bold;
       }
 
       &--value {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         font-weight: bold;
       }
     }
