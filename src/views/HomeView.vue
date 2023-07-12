@@ -14,7 +14,7 @@ import { formatDate } from '@/helpers/utils';
 import BarLoading from '@/components/base/BarLoading.vue';
 
 const { state, items, accepted, rejected, warning } = toRefs(useTopicsStore());
-const { stateHistory, itemsHistory, rejectedHistory, acceptedHistory, warningHistory } = toRefs(useHistoryStore());
+const { rejectedHistory, acceptedHistory } = toRefs(useHistoryStore());
 const { getTopicHistory } = useHistoryStore();
 const { doPublish } = useBrokerStore();
 const { loading } = toRefs(useLoadingStore());
@@ -26,8 +26,8 @@ function changeState() {
 
 onMounted(async () => {
   try {
-    await getTopicHistory('state');
-    await getTopicHistory('items');
+    // await getTopicHistory('state');
+    // await getTopicHistory('items');
     await getTopicHistory('rejected');
     await getTopicHistory('accepted');
 
@@ -135,7 +135,7 @@ onMounted(async () => {
             <p class="card__items__item--total">Total</p>
             <p>
               <!-- <span class="card__items__item--value">{{ items.message }}</span> -->
-              <span class="card__items__item--value">{{ (accepted.message as number) + (rejected.message as number) }}</span>
+              <span class="card__items__item--value">{{ ((accepted.message as number) + (rejected.message as number)) || 0 }}</span>
               <span class="card__items__item--label"> caixas</span>
             </p>
           </div>
@@ -158,11 +158,11 @@ onMounted(async () => {
       <canvas v-else id="chart"></canvas>
     </div>
 
-    <div>
+    <!-- <div>
       <h4>WARNING</h4>
       <p>Message: {{ warning.message }}</p>
       <p>At: {{ warning.time }}</p>
-    </div>
+    </div> -->
   </main>
 </template>
 
@@ -175,7 +175,7 @@ onMounted(async () => {
   @include screen(desktop-only) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 2rem;
+    column-gap: 1rem;
   }
 }
 
@@ -246,7 +246,10 @@ onMounted(async () => {
       flex-direction: column;
       align-items: flex-start;
       padding: 0 0.5rem;
-      border-right: 1px solid $gray-2;
+
+      &:not(:last-child) {
+        border-right: 1px solid $gray-2;
+      }
 
       &--label {
         color: $gray-1;

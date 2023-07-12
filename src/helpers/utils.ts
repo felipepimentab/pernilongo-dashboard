@@ -20,16 +20,6 @@ const diaDaSemana = [
   'Sábado'
 ]
 
-// const diaDaSemana = [
-//   'Domingo',
-//   'Segunda-Feira',
-//   'Terça-Feira',
-//   'Quarta-Feira',
-//   'Quinta-Feira',
-//   'Sexta-Feira',
-//   'Sábado'
-// ]
-
 function formatRelativeDate(date: Date): string {
   const today = new Date().getTime();
   const diff = Math.floor(((((today - date.getTime())/1000)/60)/60)/24)
