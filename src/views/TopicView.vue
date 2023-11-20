@@ -63,7 +63,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="topic">
+  <main class="main">
     <PageHeader>{{ getTopicTitle(topic) }}</PageHeader>
     <h2>Últimas {{ graphSize }} publicações</h2>
     <BarLoading v-if="!completeHistory"/>
@@ -84,18 +84,6 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-.topic {
-  padding: 1.5rem 4%;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  row-gap: 1rem;
-
-  @include screen(desktop-only) {
-    padding: 1.5rem 8%;
-  }
-}
-
 h2 {
   font-size: 1.5rem;
   font-weight: bold;
