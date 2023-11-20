@@ -27,9 +27,20 @@ interface Subscription {
 type ConnectionStatus = 'connecting' | 'success' | 'error';
 
 interface ApiResponse<T> {
-  data: {
-    data: T,
-  }
+  data: T,
 }
 
-export type { Payload, Topic, TopicPath, Publication, Subscription, ApiResponse, ConnectionStatus }
+type History = {
+  payload: {
+    message: number,
+    time: string,
+  },
+  qos: number,
+  retain: boolean,
+  topic: string,
+  __v: number,
+  _id: string,
+  _msgid: string,
+}[]
+
+export type { Payload, Topic, TopicPath, Publication, Subscription, ApiResponse, ConnectionStatus, History }

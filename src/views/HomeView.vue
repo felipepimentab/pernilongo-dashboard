@@ -2,73 +2,24 @@
 import HomeHeader from '@/components/home/HomeHeader.vue';
 import { useTopicsStore } from '@/stores/topics';
 import { useBrokerStore } from '@/stores/broker';
-// import { useHistoryStore } from '@/stores/history';
-// import { useLoadingStore } from '@/stores/loading';
-import { toRefs } from 'vue';
-// import Chart from 'chart.js/auto'
+import { toRefs, ref } from 'vue';
 import IconChevronRight from '@/components/base/svg/icons/IconChevronRight.vue';
 import IconEngine from '@/components/base/svg/icons/IconEngine.vue';
 import IconBox from '@/components/base/svg/icons/IconBox.vue';
-import { formatRelativeDate, createPlotableArray, createDataArray, getShiftedWeekdays } from '@/helpers/utils';
+import { formatRelativeDate } from '@/helpers/utils';
 import { formatDate } from '@/helpers/utils';
-import BarLoading from '@/components/base/BarLoading.vue';
 
 const { state, temperature, current, tension, speed, warning } = toRefs(useTopicsStore());
 const { doPublish } = useBrokerStore();
+const inputSpeed = ref<number>(100);
 
 function changeState() {
   doPublish(!state.value.message, '/motor/state')
 }
 
-
-// onMounted(async () => {
-//   try {
-//     await getTopicHistory('rejected');
-//     await getTopicHistory('accepted');
-
-//   } catch (error) {
-//     console.error(error);
-//   } finally {
-//     const acceptedBoxes = createPlotableArray(acceptedHistory.value);
-//     const rejectedBoxes = createPlotableArray(rejectedHistory.value);
-//     const semana = getShiftedWeekdays(acceptedBoxes[0].time)
-  
-//     const ctx = document.getElementById('chart') as HTMLElement;
-//     new Chart(ctx as any, {
-//       type: 'bar',
-//       data: {
-//         labels: semana,
-//         datasets: [{
-//           label: 'Caixas aceitas',
-//           data: createDataArray(acceptedBoxes),
-//           borderWidth: 2,
-//           borderRadius: 5,
-//           backgroundColor: 'rgba(0, 122, 255, 0.5)',
-//           borderColor: 'rgb(0, 122, 255)'
-//         },
-//         {
-//           label: 'Caixas rejeitadas',
-//           data: createDataArray(rejectedBoxes),
-//           borderWidth: 2,
-//           borderRadius: 5,
-//           backgroundColor: 'rgba(255, 59, 48, 0.5)',
-//           borderColor: 'rgb(255, 59, 48)'
-//         }]
-//       },
-//       options: {
-//         scales: {
-//           y: {
-//             beginAtZero: true,
-//             stacked: true,
-//           },
-//           x: {
-//             stacked: true,
-//           }
-//         }
-//       }
-//     });
-//   }
-// })
+function changeSpeed() {
+  doPublish(inputSpeed.value, '/motor/speed')
+}
 </script>
 
 <template>
@@ -108,8 +59,8 @@ function changeState() {
       </article>
 
       <!-- Velocidade -->
-      <router-link :to="{ name: 'topic', params: { topic: 'speed' } }" class="card">
-        <div class="card__head">
+      <article class="card">
+        <router-link :to="{ name: 'topic', params: { topic: 'speed' } }" class="card__head">
           <h2>
             <IconBox />
             Velocidade
@@ -118,11 +69,15 @@ function changeState() {
             {{ formatRelativeDate(speed.time) ?? 'Ver histórico' }}
             <IconChevronRight title="Seta" />
           </span>
-        </div>
+        </router-link>
         <p class="card__state">
           {{ speed.message + ' rpm' ?? 'Sem dados' }}
         </p>
-      </router-link>
+        <form @submit.prevent="changeSpeed" class="speed-form">
+          <input type="number" name="speed" id="speed" min="50" max="150" v-model="inputSpeed">
+          <input type="submit" value="Enviar">
+        </form>
+      </article>
 
       <!-- Tensão -->
       <router-link :to="{ name: 'topic', params: { topic: 'tension' } }" class="card">
@@ -268,9 +223,11 @@ function changeState() {
   }
 
   .button {
-    padding: 0.5rem 1.75rem;
+    padding: 0.25rem 1rem;
     border-radius: 0.5rem;
+    width: fit-content;
     color: $white;
+    font-size: 1rem;
     font-weight: bold;
     background-color: $blue;
 
@@ -281,6 +238,27 @@ function changeState() {
     &:disabled {
       background-color: $gray-3;
       cursor: not-allowed;
+    }
+  }
+}
+
+.speed-form {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  input {
+    background-color: $gray-5;
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+    border-radius: 0.5rem;
+    color: $text-gray;
+    font-weight: bold;
+
+    &:nth-child(2) {
+      color: $white;
+      background-color: $blue;
+      @include shadow;
     }
   }
 }

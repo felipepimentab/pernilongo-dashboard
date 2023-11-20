@@ -1,5 +1,5 @@
 import Api from '@/config/axios/index';
-import type { ApiResponse } from '@/types/common';
+import type { ApiResponse, History } from '@/types/common';
 
 const apiUrl = '/api/pubs'
 
@@ -10,7 +10,7 @@ function getAllTopics(): Promise<ApiResponse<any>> {
   });
 }
 
-function getSingleTopic(topic: any): Promise<ApiResponse<any>> {
+function getSingleTopic(topic: any): Promise<ApiResponse<History>> {
   return Api({
     method: 'GET',
     url: apiUrl + '/' + topic,
