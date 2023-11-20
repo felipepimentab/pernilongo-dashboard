@@ -90,6 +90,10 @@ onMounted(async () => {
   flex-direction: column;
   width: 100%;
   row-gap: 1rem;
+
+  @include screen(desktop-only) {
+    padding: 1.5rem 8%;
+  }
 }
 
 h2 {
