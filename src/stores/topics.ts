@@ -8,32 +8,17 @@ export const useTopicsStore = defineStore('topics', () => {
     time: new Date,
   });
   
-  // const speed = ref<Payload>({
-  //   message: 0,
-  //   time: new Date,
-  // });
-
-  // const tension = ref<Payload>({
-  //   message: 0,
-  //   time: new Date,
-  // });
-
-  // const current = ref<Payload>({
-  //   message: 0,
-  //   time: new Date,
-  // });
-
-  const items = ref<Payload>({
+  const speed = ref<Payload>({
     message: 0,
     time: new Date,
   });
 
-  const accepted = ref<Payload>({
+  const tension = ref<Payload>({
     message: 0,
     time: new Date,
   });
 
-  const rejected = ref<Payload>({
+  const current = ref<Payload>({
     message: 0,
     time: new Date,
   });
@@ -43,45 +28,52 @@ export const useTopicsStore = defineStore('topics', () => {
     time: new Date,
   });
 
-  // const temperature = ref<Payload>({
-  //   message: 0,
-  //   time: new Date,
-  // });
+  const temperature = ref<Payload>({
+    message: 0,
+    time: new Date,
+  });
 
   function receiveMessage(topic: string, msg: Buffer) {
     const date = new Date(JSON.parse(msg.toString()).time);
     const message = JSON.parse(msg.toString()).message;
   
     switch (topic) {
-      case '/belt/state':
+      case '/motor/state':
         state.value = {
           message: !!message as boolean,
           time: date
         };
         break;
     
-      case '/belt/items':
-        items.value = {
+      case '/motor/speed':
+        speed.value = {
           message: parseInt(message.toString()) as number,
           time: date
         };
         break;
     
-      case '/belt/accepted':
-        accepted.value = {
+      case '/motor/tension':
+        tension.value = {
           message: parseInt(message.toString()) as number,
           time: date
         };
         break;
     
-      case '/belt/rejected':
-        rejected.value = {
+      case '/motor/current':
+        current.value = {
           message: parseInt(message.toString()) as number,
           time: date
         };
         break;
     
-      case '/belt/warning':
+      case '/motor/temperature':
+        temperature.value = {
+          message: parseInt(message.toString()) as number,
+          time: date
+        };
+        break;
+    
+      case '/motor/warning':
         warning.value = {
           message: message.toString() as string,
           time: date
@@ -96,9 +88,10 @@ export const useTopicsStore = defineStore('topics', () => {
   
   return {
     state,
-    items,
-    accepted,
-    rejected,
+    speed,
+    tension,
+    current,
+    temperature,
     warning,
     receiveMessage,
   }

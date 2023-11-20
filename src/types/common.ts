@@ -5,11 +5,9 @@ type Payload = {
   time: Date,
 }
 
-// type Topic = 'state' | 'speed' | 'tension' | 'current' | 'temperature' | 'warning'
-type Topic = 'state' | 'accepted' | 'rejected' | 'items' | 'warning'
+type Topic = 'state' | 'speed' | 'tension' | 'current' | 'temperature' | 'warning'
 
-// type TopicPath = `/motor/${Topic}`
-type TopicPath = `/belt/${Topic}`
+type TopicPath = `/motor/${Topic}`
 
 interface Publication {
   topic: Topic,

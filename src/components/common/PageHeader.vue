@@ -1,13 +1,15 @@
+<script lang="ts" setup>
+import IconChevronRight from '@/components/base/svg/icons/IconChevronRight.vue';
+
+</script>
+
 <template>
   <header class="header">
     <router-link
       class="header__link"
       :to="{ name: 'home' }"
     >
-      <SvgComponent
-        icon="Arrow"
-        class="header__link__arrow"
-      />
+      <IconChevronRight title="Seta" class="header__link__arrow" />
       Voltar
     </router-link>
     <h1 class="header__title">
@@ -31,7 +33,7 @@
       fill: $blue;
       height: 0.85rem;
       width: 0.85rem;
-      transform: rotate(-90deg);
+      transform: rotate(-180deg);
     }
   }
 

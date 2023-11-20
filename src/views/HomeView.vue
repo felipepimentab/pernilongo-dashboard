@@ -2,10 +2,10 @@
 import HomeHeader from '@/components/home/HomeHeader.vue';
 import { useTopicsStore } from '@/stores/topics';
 import { useBrokerStore } from '@/stores/broker';
-import { useHistoryStore } from '@/stores/history';
-import { useLoadingStore } from '@/stores/loading';
-import { toRefs, onMounted } from 'vue';
-import Chart from 'chart.js/auto'
+// import { useHistoryStore } from '@/stores/history';
+// import { useLoadingStore } from '@/stores/loading';
+import { toRefs } from 'vue';
+// import Chart from 'chart.js/auto'
 import IconChevronRight from '@/components/base/svg/icons/IconChevronRight.vue';
 import IconEngine from '@/components/base/svg/icons/IconEngine.vue';
 import IconBox from '@/components/base/svg/icons/IconBox.vue';
@@ -13,155 +13,168 @@ import { formatRelativeDate, createPlotableArray, createDataArray, getShiftedWee
 import { formatDate } from '@/helpers/utils';
 import BarLoading from '@/components/base/BarLoading.vue';
 
-const { state, accepted, rejected } = toRefs(useTopicsStore());
-const { rejectedHistory, acceptedHistory } = toRefs(useHistoryStore());
-const { getTopicHistory } = useHistoryStore();
+const { state, temperature, current, tension, speed, warning } = toRefs(useTopicsStore());
 const { doPublish } = useBrokerStore();
-const { loading } = toRefs(useLoadingStore());
 
 function changeState() {
-  doPublish(!state.value.message, '/belt/items')
+  doPublish(!state.value.message, '/motor/state')
 }
 
 
-onMounted(async () => {
-  try {
-    await getTopicHistory('rejected');
-    await getTopicHistory('accepted');
+// onMounted(async () => {
+//   try {
+//     await getTopicHistory('rejected');
+//     await getTopicHistory('accepted');
 
-  } catch (error) {
-    console.error(error);
-  } finally {
-    const acceptedBoxes = createPlotableArray(acceptedHistory.value);
-    const rejectedBoxes = createPlotableArray(rejectedHistory.value);
-    const semana = getShiftedWeekdays(acceptedBoxes[0].time)
+//   } catch (error) {
+//     console.error(error);
+//   } finally {
+//     const acceptedBoxes = createPlotableArray(acceptedHistory.value);
+//     const rejectedBoxes = createPlotableArray(rejectedHistory.value);
+//     const semana = getShiftedWeekdays(acceptedBoxes[0].time)
   
-    const ctx = document.getElementById('chart') as HTMLElement;
-    new Chart(ctx as any, {
-      type: 'bar',
-      data: {
-        labels: semana,
-        datasets: [{
-          label: 'Caixas aceitas',
-          data: createDataArray(acceptedBoxes),
-          borderWidth: 2,
-          borderRadius: 5,
-          backgroundColor: 'rgba(0, 122, 255, 0.5)',
-          borderColor: 'rgb(0, 122, 255)'
-        },
-        {
-          label: 'Caixas rejeitadas',
-          data: createDataArray(rejectedBoxes),
-          borderWidth: 2,
-          borderRadius: 5,
-          backgroundColor: 'rgba(255, 59, 48, 0.5)',
-          borderColor: 'rgb(255, 59, 48)'
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            stacked: true,
-          },
-          x: {
-            stacked: true,
-          }
-        }
-      }
-    });
-  }
-})
+//     const ctx = document.getElementById('chart') as HTMLElement;
+//     new Chart(ctx as any, {
+//       type: 'bar',
+//       data: {
+//         labels: semana,
+//         datasets: [{
+//           label: 'Caixas aceitas',
+//           data: createDataArray(acceptedBoxes),
+//           borderWidth: 2,
+//           borderRadius: 5,
+//           backgroundColor: 'rgba(0, 122, 255, 0.5)',
+//           borderColor: 'rgb(0, 122, 255)'
+//         },
+//         {
+//           label: 'Caixas rejeitadas',
+//           data: createDataArray(rejectedBoxes),
+//           borderWidth: 2,
+//           borderRadius: 5,
+//           backgroundColor: 'rgba(255, 59, 48, 0.5)',
+//           borderColor: 'rgb(255, 59, 48)'
+//         }]
+//       },
+//       options: {
+//         scales: {
+//           y: {
+//             beginAtZero: true,
+//             stacked: true,
+//           },
+//           x: {
+//             stacked: true,
+//           }
+//         }
+//       }
+//     });
+//   }
+// })
 </script>
 
 <template>
   <main class="main">
     <HomeHeader />
-    <div class="content">
-    <article class="card">
-      <div class="card__head">
-        <h2>
-          <IconEngine />
-          Estado atual da esteira
-        </h2>
-        <span>
-          {{ formatRelativeDate(state.time) }}
-          <IconChevronRight title="Seta" />
-        </span>
-      </div>
-      <p class="card__state">
-        <span :class="(state.message ? 'on' : 'off')">
-          {{ state.message ? 'Ligada' : 'Desligada' }}
-        </span>
-        desde {{ formatDate(state.time) }}
-      </p>
-      <button
-        type="button"
-        class="button"
-        @click.prevent="changeState"
-      >
-        {{ state.message ? 'Desligar' : 'Ligar' }}
-      </button>
-      </article>
 
+    <div class="warning" v-if="warning">
+      <h4>{{ warning.message }}</h4>
+      <p>{{ formatDate(warning.time) }}</p>
+    </div>
+
+    <div class="content">
+      <!-- Estado -->
       <article class="card">
         <div class="card__head">
           <h2>
-            <IconBox />
-            Fluxo de caixas no dia
+            <IconEngine />
+            Estado atual do motor
           </h2>
           <span>
-            {{ formatRelativeDate(accepted.time) }}
+            {{ formatRelativeDate(state.time) ?? 'Ver histórico' }}
+          </span>
+        </div>
+        <p class="card__state">
+          <span :class="(state.message ? 'on' : 'off')">
+            {{ state.message ? 'Ligado' : 'Desligado' }}
+          </span>
+          desde {{ formatDate(state.time) }}
+        </p>
+        <button
+          type="button"
+          class="button"
+          @click.prevent="changeState"
+        >
+          {{ state.message ? 'Desligar' : 'Ligar' }}
+        </button>
+      </article>
+
+      <!-- Velocidade -->
+      <router-link :to="{ name: 'topic', params: { topic: 'speed' } }" class="card">
+        <div class="card__head">
+          <h2>
+            <IconBox />
+            Velocidade
+          </h2>
+          <span>
+            {{ formatRelativeDate(speed.time) ?? 'Ver histórico' }}
             <IconChevronRight title="Seta" />
           </span>
         </div>
-        <div class="card__items">
-          <div class="card__items__item">
-            <p class="card__items__item--accepted">Aceitas</p>
-            <p>
-              <span class="card__items__item--value">{{ accepted.message }}</span>
-              <span class="card__items__item--label">{{ accepted.message === 1 ? ' caixa' : ' caixas'}}</span>
-            </p>
-          </div>
-          <div class="card__items__item">
-            <p class="card__items__item--rejected">Rejeitadas</p>
-            <p>
-              <span class="card__items__item--value">{{ rejected.message }}</span>
-              <span class="card__items__item--label">{{ rejected.message === 1 ? ' caixa' : ' caixas'}}</span>
-            </p>
-          </div>
-          <div class="card__items__item">
-            <p class="card__items__item--total">Total</p>
-            <p>
-              <!-- <span class="card__items__item--value">{{ items.message }}</span> -->
-              <span class="card__items__item--value">{{ ((accepted.message as number) + (rejected.message as number)) || 0 }}</span>
-              <span class="card__items__item--label">{{ ((accepted.message as number) + (rejected.message as number)) === 1 ? ' caixa' : ' caixas'}}</span>
-            </p>
-          </div>
-        </div>
-      </article>      
-    </div>
-    
-    <div class="card chart">
-      <div class="card__head">
-        <h2>
-          <IconBox />
-          Histórico do fluxo de caixas
-        </h2>
-        <span>
-          Nos últimos 7 dias
-          <IconChevronRight title="Seta" />
-        </span>
-      </div>
-      <BarLoading v-if="loading"/>
-      <canvas v-else id="chart"></canvas>
-    </div>
+        <p class="card__state">
+          {{ speed.message + ' rpm' ?? 'Sem dados' }}
+        </p>
+      </router-link>
 
-    <!-- <div>
-      <h4>WARNING</h4>
-      <p>Message: {{ warning.message }}</p>
-      <p>At: {{ warning.time }}</p>
-    </div> -->
+      <!-- Tensão -->
+      <router-link :to="{ name: 'topic', params: { topic: 'tension' } }" class="card">
+        <div class="card__head">
+          <h2>
+            <IconBox />
+            Tensão
+          </h2>
+          <span>
+            {{ formatRelativeDate(tension.time) ?? 'Ver histórico' }}
+            <IconChevronRight title="Seta" />
+          </span>
+        </div>
+        <p class="card__state">
+          {{ tension.message + 'V' ?? 'Sem dados' }}
+        </p>
+      </router-link>
+
+      <!-- Corrente -->
+      <router-link :to="{ name: 'topic', params: { topic: 'current' } }" class="card">
+        <div class="card__head">
+          <h2>
+            <IconBox />
+            Corrente
+          </h2>
+          <span>
+            {{ formatRelativeDate(current.time) ?? 'Ver histórico' }}
+            <IconChevronRight title="Seta" />
+          </span>
+        </div>
+        <p class="card__state">
+          {{ current.message + 'A' ?? 'Sem dados' }}
+        </p>
+      </router-link>
+
+      <!-- Temperatura -->
+      <router-link :to="{ name: 'topic', params: { topic: 'temperature' } }" class="card">
+        <div class="card__head">
+          <h2>
+            <IconBox />
+            Temperatura
+          </h2>
+          <span>
+            {{ formatRelativeDate(temperature.time) ?? 'Ver histórico' }}
+            <IconChevronRight title="Seta" />
+          </span>
+        </div>
+        <p class="card__state">
+          {{ temperature.message + 'ºC' ?? 'Sem dados' }}
+        </p>
+      </router-link>
+    </div>
   </main>
 </template>
 
@@ -175,6 +188,24 @@ onMounted(async () => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 1rem;
+  }
+}
+
+.warning {
+  width: fit-content;
+  column-gap: 1rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+
+  h4 {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: $orange;
+  }
+
+  p {
+    color: $gray-1;
   }
 }
 
@@ -233,51 +264,6 @@ onMounted(async () => {
       font-size: 1.5rem;
       font-weight: bold;
       color: $red;
-    }
-  }
-
-  &__items {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    width: fit-content;
-
-    &__item {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 0.25rem 0.75rem;
-      height: fit-content;
-
-      &:not(:last-child) {
-        border-right: 1px solid $gray-2;
-      }
-
-      &--label {
-        color: $gray-1;
-      }
-
-      &--accepted {
-        font-size: 1.25rem;
-        color: $blue;
-        font-weight: bold;
-      }
-
-      &--rejected {
-        font-size: 1.25rem;
-        color: $red;
-        font-weight: bold;
-      }
-
-      &--total {
-        font-size: 1.25rem;
-        color: $green;
-        font-weight: bold;
-      }
-
-      &--value {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
     }
   }
 

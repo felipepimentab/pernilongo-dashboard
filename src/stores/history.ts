@@ -12,41 +12,26 @@ export const useHistoryStore = defineStore('history', () => {
   const tensionHistory = ref();
   const temperatureHistory = ref();
   const warningHistory = ref();
-  const acceptedHistory = ref();
-  const itemsHistory = ref();
-  const rejectedHistory = ref();
 
   async function getTopicHistory(topic: Topic) {
     loading.increase()
     try {
       const response = await getSingleTopic(topic)
       switch (topic) {
-        // case 'current':
-        //   currentHistory.value = response.data;
-        //   break;
+        case 'current':
+          currentHistory.value = response.data;
+          break;
         case 'state':
           stateHistory.value = response.data;
           break;
-        // case 'speed':
-        //   speedHistory.value = response.data;
-        //   break;
-        // case 'tension':
-        //   tensionHistory.value = response.data;
-        //   break;
-        // case 'temperature':
-        //   temperatureHistory.value = response.data;
-        //   break;
-        case 'warning':
-          warningHistory.value = response.data;
+        case 'speed':
+          speedHistory.value = response.data;
           break;
-        case 'accepted':
-          acceptedHistory.value = response.data;
+        case 'tension':
+          tensionHistory.value = response.data;
           break;
-        case 'items':
-          itemsHistory.value = response.data;
-          break;
-        case 'rejected':
-          rejectedHistory.value = response.data;
+        case 'temperature':
+          temperatureHistory.value = response.data;
           break;
         default:
           break;
@@ -66,9 +51,6 @@ export const useHistoryStore = defineStore('history', () => {
     tensionHistory,
     temperatureHistory,
     warningHistory,
-    acceptedHistory,
-    rejectedHistory,
-    itemsHistory,
     getTopicHistory
   }
 })
